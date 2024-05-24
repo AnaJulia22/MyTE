@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ProjetoMyTe.AppWeb.Models.DTO.WbsDTO>
+
+@{
+    ViewData["Title"] = "ListarWbss";
+}
+
+<h1>Lista de WBS's</h1>
+
+<p>
+    <a asp-action="AdicionarWbs" class="btn btn-primary">Nova WBS +</a>
+    @* @using (Html.BeginForm("ListarWbss", "Wbss", FormMethod.Get))
+    {
+        <div class="mb-3">
+            @Html.Label("Tipo", "Filtrar por Tipo")
+            @Html.DropDownList(
+                     "TipoSelecionado",
+                     new SelectList(new[]
+                     {
+        new SelectListItem { Text = "Todos", Value = "" },
+        new SelectListItem { Text = "Chargeability", Value = "1" },
+        new SelectListItem { Text = "Non-Chargeability", Value = "2" },
+        }, "Value", "Text"),
+                     new { @class = "form-select" })
+        <input type="hidden" id="TipoSelecionado" name="TipoSelecionado" />
+
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    } *@
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            @* <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                @* <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+            </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td>
+
+                    <a asp-action="AlterarWbs" asp-route-id="@item.Id">Alterar</a> |
+                    <a asp-action="RemoverWbs" asp-route-id="@item.Id">Remover</a>
+                    @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

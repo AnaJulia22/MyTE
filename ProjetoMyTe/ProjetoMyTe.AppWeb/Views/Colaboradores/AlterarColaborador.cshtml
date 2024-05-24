@@ -1,0 +1,38 @@
+﻿@model ProjetoMyTe.AppWeb.Models.Entities.Colaborador
+
+@{
+    ViewData["Title"] = "Alterar Colaborador";
+}
+
+<h1>Alterar Colaborador</h1>
+
+<h4>Colaborador</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AlterarColaborador">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+                <input type="hidden" asp-for="Id" />
+               
+            <div class="form-group">
+                <label asp-for="CargoId" class="control-label"></label>
+                <input asp-for="CargoId" class="form-control" />
+                <span asp-validation-for="CargoId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Administrador" /> @Html.DisplayNameFor(model => model.Administrador)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Alterar Colaborador" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ListarColaboradores">Voltar para Lista</a>
+</div>
+

@@ -1,0 +1,51 @@
+﻿@model ProjetoMyTe.AppWeb.Models.Entities.Wbs
+
+@{
+    ViewData["Title"] = "AdicionarWbs";
+}
+
+<h1>Adicionar Wbs</h1>
+
+<h4>Wbs</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AdicionarWbs">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group">
+            <label asp-for="Id" class="control-label"></label>
+            <input asp-for="Id" class="form-control" />
+            <span asp-validation-for="Id" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Codigo" class="control-label"></label>
+                <input asp-for="Codigo" class="form-control" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tipo" class="control-label"></label>
+                <select asp-for="Tipo" class="form-select">
+                    <option value="0">SELECIONE O TIPO</option>
+                    <option value="1">Chargeability</option>
+                    <option value="2">Non-chargeability</option>
+
+                </select>
+
+                <span asp-validation-for="Tipo" class="text-danger"></span>
+            </div>
+            <div class="mt-3">
+                <input type="submit" value="Adicionar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ListarWbss">Voltar para lista</a>
+</div>
+

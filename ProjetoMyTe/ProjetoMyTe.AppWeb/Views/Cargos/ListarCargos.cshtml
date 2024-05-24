@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ProjetoMyTe.AppWeb.Models.Entities.Cargo>
+
+@{
+    ViewData["Title"] = "ListarCargos";
+}
+
+<h1>Lista de Cargos</h1>
+
+<p>
+    <a asp-action="AdicionarCargo" class="btn btn-primary">Novo Cargo +</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                <a asp-action="AlterarCargo" asp-route-id = "@item.Id">Alterar</a> |
+                <a asp-action="RemoverCargo" asp-route-id="@item.Id">Remover</a>
+            
+               @*  @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

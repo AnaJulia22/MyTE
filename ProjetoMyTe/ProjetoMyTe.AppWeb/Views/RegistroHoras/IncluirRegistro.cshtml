@@ -1,0 +1,67 @@
+﻿@model ProjetoMyTe.AppWeb.Models.Entities.RegistroHoras
+
+@{
+    ViewData["Title"] = "Incluir Registro";
+}
+
+<div class="row ">
+    <div class="col-md-4">
+        <form asp-action="IncluirRegistro" class="mt-5">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataRegistro" class="control-label"></label>
+                <input asp-for="DataRegistro" class="form-control" />
+                <span asp-validation-for="DataRegistro" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="WbsId" class="control-label"></label>
+                <select asp-for="WbsId" asp-items="(SelectList)ViewBag.ListaDeWbss" class="form-select">
+                    <option value="0">SELECIONE A WBS</option>
+                </select>
+                <span asp-validation-for="WbsId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CpfId" class="control-label"></label>
+                <select asp-for="CpfId" asp-items="(SelectList)ViewBag.ListaDeColaboradores" class="form-select">
+                    <option value="0">SELECIONE O COLABORADOR</option>
+                </select>
+                <span asp-validation-for="CpfId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dia" class="control-label"></label>
+                <input type= "date" asp-for="Dia" class="form-control" />
+                <span asp-validation-for="Dia" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Horas" class="control-label"></label>
+                <input asp-for="Horas" class="form-control" />
+                <span asp-validation-for="Horas" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <div class="row gx-2">
+                    <div class="col">
+                        <input type="submit" value="Adicionar registro" class="btn btn-primary w-100" style="background-color: #890078; " />
+                    </div>
+                    <div class="col">
+                        <a asp-action="ListarRegistros" class="btn btn-primary w-100" style="background-color: #890078;">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .btn {
+        border: none;
+    }
+
+</style>
+
+

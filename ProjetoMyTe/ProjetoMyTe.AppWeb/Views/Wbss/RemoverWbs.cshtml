@@ -1,0 +1,14 @@
+﻿@model ProjetoMyTe.AppWeb.Models.Entities.Wbs
+
+@{
+    ViewData["Title"] = "RemoverWbs";
+}
+
+<h3>Tem certeza que deseja remover a Wbs '@Model.Descricao'?</h3>
+<div>
+        
+    <form asp-action="RemoverWbs">
+        <input type="submit" value="Sim, confirmar!" class="btn btn-danger" /> |
+        <a asp-action="ListarWbss">Voltar para lista</a>
+    </form>
+</div>

@@ -1,0 +1,71 @@
+﻿@model ProjetoMyTe.AppWeb.Models.Entities.LogonViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_LoginLayout";
+}
+
+<div class="container">
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col-md-4">
+            <form asp-action="Login" class="login-form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Cpf" class="control-label"></label>
+                    <input asp-for="Cpf" class="form-control" />
+                    <span asp-validation-for="Cpf" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Senha" class="control-label"></label>
+                    <input asp-for="Senha" class="form-control" />
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                    </label>
+                </div>
+                <div class="text-center mt-3">
+                    <a asp-action="Registrar" class="text-black">Não possui uma conta? Registre-se!</a>
+                </div>
+                <div class="text-center mt-2">
+                    <input type="submit" value="Fazer login" class="btn btn-primary" style="background-color: #ff5800; " />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom styling for the login form */
+    body{
+        background: linear-gradient(to top, #890078 40%, #ff5800);
+        /* background-image: url('/Imgs/MyTE-Project-decola.jpg');
+        background-size: cover; /* Adjust as needed */
+        /* background-repeat: no-repeat;
+        background-attachment: fixed; */
+    }
+    
+    .login-form {
+        background-color: rgba(255, 255, 255, 0.4);
+        
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 0px 20px rgba(70, 69, 69, 0.47);
+    }
+
+        .login-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .login-form label {
+            font-weight: bold;
+        }
+
+        .login-form input[type="submit"] {
+            width: 100%;
+        }
+</style>
+
+
+

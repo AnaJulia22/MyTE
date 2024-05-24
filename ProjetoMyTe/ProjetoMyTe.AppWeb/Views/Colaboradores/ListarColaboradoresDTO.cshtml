@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ProjetoMyTe.AppWeb.Models.DTO.ColaboradorDTO>
+
+@{
+    ViewData["Title"] = "ListarColabodoresDTO";
+}
+
+<h1>Listar de Colaboradores</h1>
+
+<p>
+    @using (Html.BeginForm("ListarColaboradoresDTO", "Colaboradores", FormMethod.Get))
+    {
+        <div class="mb-3">
+            @Html.Label("colaborador", "Selecione o Cargo")
+            @Html.DropDownList("idCargo", (SelectList)ViewBag.ListaDeCargos, "TODOS", new { @class = "form-select" })
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    }
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescricaoCargo)
+            </th>
+            
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescricaoCargo)
+            </td>
+            <td>
+                    <a asp-action="AlterarColaborador" asp-route-id="@item.Id">Alterar</a> |
+                    <a asp-action="RemoverColaborador" asp-route-id="@item.Id">Remover</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
