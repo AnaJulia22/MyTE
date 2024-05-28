@@ -1,0 +1,35 @@
+﻿@model ProjetoMyTe.AppWeb.Models.Entities.AlterarSenhaViewModel
+@{
+    ViewData["Title"] = "Alterar Senha";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" asp-action="AlterarSenha" asp-controller="Autenticacao">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CpfId"></label>
+                <input asp-for="CpfId" class="form-control" />
+                <span asp-validation-for="CpfId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SenhaAntiga"></label>
+                <input asp-for="SenhaAntiga" class="form-control" />
+                <span asp-validation-for="SenhaAntiga" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SenhaNova"></label>
+                <input asp-for="SenhaNova" class="form-control" />
+                <span asp-validation-for="SenhaNova" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmaSenha"></label>
+                <input asp-for="ConfirmaSenha" class="form-control" />
+                <span asp-validation-for="ConfirmaSenha" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Alterar senha</button>
+            @* criar uma partial view para o botão de voltar direcionar para a pagina inicial caso logado e caso não logado, voltar para pag de login *@
+            
+        </form>
+    </div>
+</div>
