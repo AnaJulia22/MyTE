@@ -34,6 +34,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Registrar(UsuarioViewModel model)
         {
+            var roles = roleManager.Roles.ToList();
+            var listaRoles = roles.Select(p => p.Name).ToList();
+            ViewBag.Roles = new SelectList(listaRoles);
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
@@ -72,7 +75,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Login(LogonViewModel model)
         {
@@ -95,9 +97,19 @@ namespace ProjetoMyTe.AppWeb.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Autenticacao");
+        }
+        
+        [HttpGet]
+        public IActionResult AlterarSenha()
+        {
+            return View();
         }
 
+        public async Task<IActionResult> AlterarSenha(UsuarioViewModel model)
+        {
+            return null;
+        }
 
         public IActionResult AccessDenied()
         {
