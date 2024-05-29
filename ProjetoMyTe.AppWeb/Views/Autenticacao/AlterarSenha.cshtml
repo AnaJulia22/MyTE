@@ -35,7 +35,7 @@
                 <button type="submit" class="btn btn-primary">Alterar senha</button>
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    if (User.IsInRole("USER"))
+                    if (User.IsInRole("COLABORADOR"))
                     {
                         <a asp-controller="RegistroHoras" asp-action="ListarRegistros" class="btn btn-secondary">Cancelar</a>
                     }

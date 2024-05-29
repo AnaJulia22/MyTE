@@ -57,8 +57,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                         }
                     }
                     await signInManager.SignInAsync(user, isPersistent: false);
-                    
-                    return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("USER")
+                    return User.IsInRole("GESTOR DE PROJETOS") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
                                                   ? RedirectToAction("ListarRegistros", "RegistroHoras")
                                                   : RedirectToAction("ShowDashboard", "Dashboard");
                 }
