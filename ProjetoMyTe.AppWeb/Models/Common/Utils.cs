@@ -19,6 +19,7 @@ namespace ProjetoMyTe.AppWeb.Models.Common
                     result = await roleManager.CreateAsync(new IdentityRole(role));
                 }
             }
+
         }
         public static string? IdCpf = null;
     }

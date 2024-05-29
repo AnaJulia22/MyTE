@@ -1,9 +1,8 @@
 ﻿@model ProjetoMyTe.AppWeb.Models.Entities.RegistroHoras
 
 @{
-    ViewData["Title"] = "Incluir Registro";
+    ViewData["Title"] = "Incluir Registro Diário";
 }
-
 <div class="container">
 
     <div class="row justify-content-center mt-5">
@@ -47,9 +46,9 @@
                                 <div class="col">
                                     <input type="submit" value="Adicionar registro" class="btn btn-primary w-100" />
                                 </div>
-                                <div class="col">
-                                    <a asp-action="ListarRegistros" class="btn btn-secondary w-100">Cancelar</a>
-                                </div>
+                              <div>
+                                 <a asp-action="ListarRegistrosQuinzenais">Voltar para lista</a>
+                                          </div>
                             </div>
                         </div>
                     </form>
@@ -58,6 +57,7 @@
         </div>
     </div>
 </div>
+
 
 <style>
     body {
@@ -91,8 +91,25 @@
         border-radius: 10px;
         border: none;
         background-color: #8c9299;
-    }
 
-</style>
+@{
+    DateTime date = new DateTime();
+    date = DateTime.Now;
+}
+@{
+    if(date.Day <= 15)
+    {
+        DateTime primeiroDiaDaQuinzena = new DateTime(date.Year, date.Month, 1);
+        var day = 1;
+        for (int i = 1; i <=15; i++)
+        {
+            <th>
+                @day/@date.Month<br />
+                @date.DayOfWeek;
+            </th>
+        }
+
+    }
+}
 
 

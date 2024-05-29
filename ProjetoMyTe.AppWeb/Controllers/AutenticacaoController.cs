@@ -87,7 +87,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     Utils.IdCpf = User.Identity!.Name;
                     return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("USER")
                                                   ? RedirectToAction("ListarRegistros", "RegistroHoras")
-                                                  : RedirectToAction("ShowDashboard", "Dashboard");
+                                                  //: RedirectToAction("ShowDashboard", "Dashboard");
+                                                  : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
 
                 }
                 ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");
