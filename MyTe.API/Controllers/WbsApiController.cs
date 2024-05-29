@@ -1,29 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyTe.API.Models;
 using MyTe.API.Services;
 
 namespace MyTe.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WbssController : ControllerBase
+    public class WbsApiController : ControllerBase
     {
         private readonly WbssService wbssService;
-
-        public WbssController(WbssService wbssService)
+        public WbsApiController(WbssService wbssService)
         {
             this.wbssService = wbssService;
         }
-
-     
-
         [HttpGet]
-        public IActionResult ListarWbsDTO()
+        public IActionResult ListarCandidatos()
         {
             return Ok(wbssService.ListarWbsDTO());
         }
-
-       
     }
 }

@@ -19,7 +19,7 @@ namespace ProjetoMyTe.AppWeb.DAL
         // adicionando entidades qualquer (T),  no sentido de registro
         public void Adicionar(T item)
         {
-            Context.Add(item);
+            Context.Entry<T>(item).State = EntityState.Added;
             Context.SaveChanges();
         }
 

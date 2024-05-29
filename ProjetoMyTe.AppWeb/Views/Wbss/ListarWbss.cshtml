@@ -4,10 +4,20 @@
     ViewData["Title"] = "ListarWbss";
 }
 
-<h1>Lista de WBS's</h1>
+
+
+<h1>Work Breakdown Structure</h1>
+
+
 
 <p>
+
+    <link rel="stylesheet" href="~/css/site.css">
+
+    <a asp-action="AdicionarWbs" id="botao" class="btn btn-primary" style="">New WBS</a>
+
     <a asp-action="AdicionarWbs" class="btn btn-primary" style="background-color: #890078; ">Nova WBS +</a>
+
     @* @using (Html.BeginForm("ListarWbss", "Wbss", FormMethod.Get))
     {
         <div class="mb-3">
@@ -61,6 +71,11 @@
                 </td>
                 <td>
 
+
+                    <a asp-action="AlterarWbs" asp-route-id="@item.Id"><img src="~/lib/imagens/alterar.png" alt="Alterar" width="30" height="30"/></a> 
+
+                    <a asp-action="RemoverWbs" asp-route-id="@item.Id"><img src="~/lib/imagens/trash.png" alt="Deletar" width="30" height="30"/></a>
+
                     <a asp-action="AlterarWbs" asp-route-id="@item.Id">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -73,6 +88,7 @@
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
                         </svg>
                     </a>
+
                     @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
