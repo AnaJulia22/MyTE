@@ -8,7 +8,7 @@ namespace ProjetoMyTe.AppWeb.Models.Common
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            string[] roleNames = { "ADMIN", "USER", "PM" };
+            string[] roleNames = { "ADMIN", "COLABORADOR", "GESTOR DE PROJETOS" };
 
             IdentityResult result;
             foreach (var role in roleNames)
