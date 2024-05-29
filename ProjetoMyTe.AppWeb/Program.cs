@@ -37,6 +37,7 @@ builder.Services.AddScoped<CargosService>();
 builder.Services.AddScoped<ColaboradoresService>();
 builder.Services.AddScoped<WbssService>();
 builder.Services.AddScoped<RegistroHorasService>();
+builder.Services.AddScoped<QuinzenasService>();
 
 builder.Services.AddControllersWithViews();
 

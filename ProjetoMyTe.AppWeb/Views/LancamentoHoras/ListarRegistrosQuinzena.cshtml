@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ProjetoMyTe.AppWeb.Models.DTO.RegistroHorasDTO>
+
+@{
+    ViewData["Title"] = "Última Quinzena Lançada";
+}
+
+<h1>Lista de Registros</h1>
+
+<div>
+    <table>
+        <tr>
+            <td><a asp-action="IncluirRegistro" asp-controller="RegistroHoras" class="btn btn-primary" style="background-color: #890078; ">Lançar Registros Diários +</a></td>
+            <td><a asp-action="LancarHorasDTO" asp-controller="LancamentoHoras" class="btn btn-primary" style="background-color: #890078; ">Lançar Registros Quinzenais +</a></td>
+        </tr>
+    </table>
+   
+</div>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th>
+                @Html.DisplayNameFor(model => model.DataRegistro)
+            </th>
+            <th style="width: 50px;">
+                @Html.DisplayNameFor(model => model.CodigoWbs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WbsId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CpfId)
+            </th>
+            @* <th>
+            @Html.DisplayNameFor(model => model.NomeColaborador)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.Dia)
+            </th>
+            <th style="width: 60px;">
+                @Html.DisplayNameFor(model => model.Horas)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataRegistro)
+                </td>
+                <td style="width: 60px;">
+                    @Html.DisplayFor(modelItem => item.CodigoWbs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WbsId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CpfId)
+                </td>
+                @* <td>
+            @Html.DisplayFor(modelItem => item.NomeColaborador)
+            </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horas)
+                </td>
+                <td>
+
+                    <div class="row gx-2">
+                        <div class="col">
+                            <a asp-action="AlterarRegistro" asp-route-id="@item.Id" class="btn btn-primary" style="background-color: #890078; ">Alterar</a>
+                        </div>
+                        <div class="col">
+                            <a asp-action="RemoverRegistro" asp-route-id="@item.Id" class="btn btn-primary mt-2" style="background-color: #890078; ">Remover</a>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<style>
+    .btn {
+        border: none;
+    }
+
+</style>
