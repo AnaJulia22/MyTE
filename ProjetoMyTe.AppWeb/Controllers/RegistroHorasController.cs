@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjetoMyTe.AppWeb.Models.Common;
 using ProjetoMyTe.AppWeb.Models.Entities;
@@ -14,6 +15,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
         private readonly ColaboradoresService colaboradoresService;
         private readonly QuinzenasService quinzenasService;
         private readonly WbssService wbssService;
+        private readonly UserManager<IdentityUser> userManager;
 
         public RegistroHorasController(RegistroHorasService registroHorasService, ColaboradoresService colaboradoresService,QuinzenasService quinzenasService, WbssService wbssService)
         {
