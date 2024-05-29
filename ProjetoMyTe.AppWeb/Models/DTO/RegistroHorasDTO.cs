@@ -16,7 +16,7 @@ namespace ProjetoMyTe.AppWeb.Models.DTO
         [DisplayName("Nome")]
         public string? NomeColaborador { get; set; }
         public DateOnly Dia { get; set; }
-        [DisplayName("Qdte de Horas")]
+        [DisplayName("Horas")]
         public int Horas { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjetoMyTe.AppWeb.Models.Common;
 using ProjetoMyTe.AppWeb.Models.Entities;
 
 namespace ProjetoMyTe.AppWeb.Controllers
@@ -83,6 +84,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Cpf!, model.Senha!, model.RememberMe, false);
                 if (result.Succeeded)
                 {
+                    Utils.IdCpf = User.Identity!.Name;
                     return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("USER")
                                                   ? RedirectToAction("ListarRegistros", "RegistroHoras")
                                                   : RedirectToAction("ShowDashboard", "Dashboard");
@@ -111,17 +113,14 @@ namespace ProjetoMyTe.AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                //fetch the User Details
                 var user = await userManager.FindByNameAsync(model.CpfId!);
                 if (user == null)
                 {
-                    //If User does not exists, redirect to the Login Page
                     return RedirectToAction("Login", "Autenticacao");
                 }
-                // ChangePasswordAsync Method changes the user password
+                
                 var result = await userManager.ChangePasswordAsync(user, model.SenhaAntiga!, model.SenhaNova!);
-                // The new password did not meet the complexity rules or the current password is incorrect.
-                // Add these errors to the ModelState and rerender ChangePassword view
+                
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
@@ -130,9 +129,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     }
                     return View();
                 }
-                // Upon successfully changing the password refresh sign-in cookie
+                
                 await signInManager.RefreshSignInAsync(user);
-                //Then redirect the user to the ChangePasswordConfirmation view
+                
                 return RedirectToAction("ChangePasswordConfirmation", "Autenticacao");
             }
 

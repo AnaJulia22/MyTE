@@ -13,7 +13,7 @@ namespace ProjetoMyTe.AppWeb.Models.Entities
         [DisplayName("CPF")]
         public string? CpfId { get; set; }
         public DateOnly Dia { get; set; }
-        [DisplayName("Qdte de Horas")]
+        [DisplayName("Horas")]
         public int Horas { get; set; }
         public Wbs? Wbs { get; set; }
         public Colaborador? Cpf { get; set; }
