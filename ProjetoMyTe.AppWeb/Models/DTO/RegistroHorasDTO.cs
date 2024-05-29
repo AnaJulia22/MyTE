@@ -15,7 +15,7 @@ namespace ProjetoMyTe.AppWeb.Models.DTO
         public string? CpfId { get; set; }
         [DisplayName("Nome")]
         public string? NomeColaborador { get; set; }
-        public DateOnly Dia { get; set; }
+        public DateTime Dia { get; set; }
         [DisplayName("Qdte de Horas")]
         public int Horas { get; set; }
     }

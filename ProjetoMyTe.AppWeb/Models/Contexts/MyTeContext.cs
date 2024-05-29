@@ -36,9 +36,9 @@ namespace ProjetoMyTe.AppWeb.Models.Contexts
                 .Property(p => p.CargoId)
                 .HasColumnName("id_cargo");
 
-            modelBuilder.Entity<Colaborador>()
-                .Property(p => p.Administrador)
-                .HasColumnName("administrador");
+            //modelBuilder.Entity<Colaborador>()
+            //    .Property(p => p.Administrador)
+            //    .HasColumnName("administrador");
 
             modelBuilder.Entity<Colaborador>()
                 .Property(p => p.Nome)

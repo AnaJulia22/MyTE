@@ -1,12 +1,14 @@
 ﻿@model ProjetoMyTe.AppWeb.Models.Entities.RegistroHoras
 
 @{
-    ViewData["Title"] = "Incluir Registro";
+    ViewData["Title"] = "Incluir Registro Diário";
 }
 
-<div class="row ">
+<h4>Registro de Horas</h4>
+<hr />
+<div class="row">
     <div class="col-md-4">
-        <form asp-action="IncluirRegistro" class="mt-5">
+        <form asp-action="IncluirRegistro">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @* <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
@@ -25,13 +27,13 @@
                 </select>
                 <span asp-validation-for="WbsId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="CpfId" class="control-label"></label>
                 <select asp-for="CpfId" asp-items="(SelectList)ViewBag.ListaDeColaboradores" class="form-select">
                     <option value="0">SELECIONE O COLABORADOR</option>
                 </select>
                 <span asp-validation-for="CpfId" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="Dia" class="control-label"></label>
                 <input type= "date" asp-for="Dia" class="form-control" />
@@ -40,28 +42,36 @@
 
             <div class="form-group">
                 <label asp-for="Horas" class="control-label"></label>
-                <input asp-for="Horas" class="form-control" />
+                <input asp-for="Horas" class="form-control" min="0" max="8"/>
                 <span asp-validation-for="Horas" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <div class="row gx-2">
-                    <div class="col">
-                        <input type="submit" value="Adicionar registro" class="btn btn-primary w-100" style="background-color: #890078; " />
-                    </div>
-                    <div class="col">
-                        <a asp-action="ListarRegistros" class="btn btn-primary w-100" style="background-color: #890078;">Cancelar</a>
-                    </div>
-                </div>
+            <div class="form-group">
+                <input type="submit" value="Incluir" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
-<style>
-    .btn {
-        border: none;
+@{
+    DateTime date = new DateTime();
+    date = DateTime.Now;
+}
+@{
+    if(date.Day <= 15)
+    {
+        DateTime primeiroDiaDaQuinzena = new DateTime(date.Year, date.Month, 1);
+        var day = 1;
+        for (int i = 1; i <=15; i++)
+        {
+            <th>
+                @day/@date.Month<br />
+                @date.DayOfWeek;
+            </th>
+        }
     }
+}
 
-</style>
 
+<div>
+    <a asp-action="ListarRegistrosQuinzenais">Voltar para lista</a>
+</div>
 

@@ -1,4 +1,5 @@
 ﻿using ProjetoMyTe.AppWeb.DAL;
+using ProjetoMyTe.AppWeb.Models.Common;
 using ProjetoMyTe.AppWeb.Models.Contexts;
 using ProjetoMyTe.AppWeb.Models.DTO;
 using ProjetoMyTe.AppWeb.Models.Entities;
@@ -40,7 +41,7 @@ namespace ProjetoMyTe.AppWeb.Services
                     Id = item.Id,
                     CargoId = item.CargoId,
                     DescricaoCargo = item.CargoAtuacao!.Descricao,
-                    Administrador = item.Administrador,
+                    //Administrador = item.Administrador,
                     Nome = item.Nome
 
                 };
@@ -76,6 +77,15 @@ namespace ProjetoMyTe.AppWeb.Services
         public void Remover(Colaborador colaborador)
         {
             ColaboraresDao.Remover(colaborador);
+        }
+
+        public Colaborador? BuscarColaborador()
+        {
+            Colaborador? colaborador = Context.Colaboradores.FirstOrDefault(
+                p => p.Id == Utils.IdCpf);
+
+            return colaborador;
+
         }
     }
 }

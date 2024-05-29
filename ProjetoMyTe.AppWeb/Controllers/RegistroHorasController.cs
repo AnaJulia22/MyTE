@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjetoMyTe.AppWeb.Models.Common;
 using ProjetoMyTe.AppWeb.Models.Entities;
 using ProjetoMyTe.AppWeb.Services;
 
@@ -11,12 +12,14 @@ namespace ProjetoMyTe.AppWeb.Controllers
     {
         private readonly RegistroHorasService registroHorasService;
         private readonly ColaboradoresService colaboradoresService;
+        private readonly QuinzenasService quinzenasService;
         private readonly WbssService wbssService;
 
-        public RegistroHorasController(RegistroHorasService registroHorasService, ColaboradoresService colaboradoresService, WbssService wbssService)
+        public RegistroHorasController(RegistroHorasService registroHorasService, ColaboradoresService colaboradoresService,QuinzenasService quinzenasService, WbssService wbssService)
         {
             this.registroHorasService = registroHorasService;
             this.colaboradoresService = colaboradoresService;
+            this.quinzenasService = quinzenasService;
             this.wbssService = wbssService;
         }
         public IActionResult Index()
@@ -38,6 +41,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 return View("_Erro", ex);
             }
         }
+        
+       
 
         [HttpGet]
         public IActionResult IncluirRegistro()
@@ -57,6 +62,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     return View();
                 }
 
+                registroHoras.CpfId = Utils.IdCpf;
                 registroHoras.DataRegistro = DateTime.Now;
                 registroHorasService.Incluir(registroHoras);
                 return RedirectToAction("ListarRegistros");
