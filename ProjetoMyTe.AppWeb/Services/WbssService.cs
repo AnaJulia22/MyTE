@@ -52,5 +52,7 @@ namespace ProjetoMyTe.AppWeb.Services
         {
             WbssDao.Remover(wbs);
         }
+
+
     }
 }

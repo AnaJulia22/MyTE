@@ -54,7 +54,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     return View();
                 }
                 wbssService.AdicionarWbs(wbs);
-                return RedirectToAction("ListarWbss");
+                //return RedirectToAction("ListarWbss");
+                return RedirectToAction("Success", new { message = "WBS has been successfully registered." }); // mudei aqui
             }
             catch (Exception)
             {
@@ -142,6 +143,11 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
                 throw;
             }
+        }
+        public ActionResult Success(string message)
+        {
+            ViewBag.Message = message;
+            return View();
         }
     }
 }

@@ -20,3 +20,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#botao {
+    background: #ff5800;
+    color: white;
+    border: #fd7e14;
+}

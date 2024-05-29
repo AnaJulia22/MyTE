@@ -8,6 +8,8 @@ using ProjetoMyTe.AppWeb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient();
+builder.Services.AddControllersWithViews();
 ConfigurationManager config = builder.Configuration;
 
 // Add services to the container.
@@ -38,9 +40,12 @@ builder.Services.AddScoped<ColaboradoresService>();
 builder.Services.AddScoped<WbssService>();
 builder.Services.AddScoped<RegistroHorasService>();
 
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+
 
 var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

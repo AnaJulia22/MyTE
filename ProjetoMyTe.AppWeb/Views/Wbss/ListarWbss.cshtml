@@ -4,10 +4,16 @@
     ViewData["Title"] = "ListarWbss";
 }
 
-<h1>Lista de WBS's</h1>
+
+
+<h1>Work Breakdown Structure</h1>
+
+
 
 <p>
-    <a asp-action="AdicionarWbs" class="btn btn-primary">Nova WBS +</a>
+    <link rel="stylesheet" href="~/css/site.css">
+
+    <a asp-action="AdicionarWbs" id="botao" class="btn btn-primary" style="">New WBS</a>
     @* @using (Html.BeginForm("ListarWbss", "Wbss", FormMethod.Get))
     {
         <div class="mb-3">
@@ -61,8 +67,9 @@
                 </td>
                 <td>
 
-                    <a asp-action="AlterarWbs" asp-route-id="@item.Id">Alterar</a> |
-                    <a asp-action="RemoverWbs" asp-route-id="@item.Id">Remover</a>
+                    <a asp-action="AlterarWbs" asp-route-id="@item.Id"><img src="~/lib/imagens/alterar.png" alt="Alterar" width="30" height="30"/></a> 
+
+                    <a asp-action="RemoverWbs" asp-route-id="@item.Id"><img src="~/lib/imagens/trash.png" alt="Deletar" width="30" height="30"/></a>
                     @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
