@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjetoMyTe.AppWeb.Models.Common;
 using ProjetoMyTe.AppWeb.Models.Entities;
 
 namespace ProjetoMyTe.AppWeb.Controllers
@@ -34,6 +35,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Registrar(UsuarioViewModel model)
         {
+            var roles = roleManager.Roles.ToList();
+            var listaRoles = roles.Select(p => p.Name).ToList();
+            ViewBag.Roles = new SelectList(listaRoles);
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
@@ -53,7 +57,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                         }
                     }
                     await signInManager.SignInAsync(user, isPersistent: false);
-                    return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("USER")
+                    return User.IsInRole("GESTOR DE PROJETOS") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
                                                   ? RedirectToAction("ListarRegistros", "RegistroHoras")
                                                   : RedirectToAction("ShowDashboard", "Dashboard");
                 }
@@ -72,7 +76,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Login(LogonViewModel model)
         {
@@ -81,9 +84,11 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Cpf!, model.Senha!, model.RememberMe, false);
                 if (result.Succeeded)
                 {
+                    Utils.IdCpf = User.Identity!.Name;
                     return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("USER")
                                                   ? RedirectToAction("ListarRegistros", "RegistroHoras")
-                                                  : RedirectToAction("ShowDashboard", "Dashboard");
+                                                  //: RedirectToAction("ShowDashboard", "Dashboard");
+                                                  : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
 
                 }
                 ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");
@@ -95,9 +100,50 @@ namespace ProjetoMyTe.AppWeb.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Autenticacao");
+        }
+        
+        [HttpGet]
+        public IActionResult AlterarSenha()
+        {
+            return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AlterarSenha(AlterarSenhaViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByNameAsync(model.CpfId!);
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Autenticacao");
+                }
+                
+                var result = await userManager.ChangePasswordAsync(user, model.SenhaAntiga!, model.SenhaNova!);
+                
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View();
+                }
+                
+                await signInManager.RefreshSignInAsync(user);
+                
+                return RedirectToAction("ChangePasswordConfirmation", "Autenticacao");
+            }
+
+            return View(model);  
+        }
+
+        [HttpGet]
+        public IActionResult ChangePasswordConfirmation()
+        {
+            return View();
+        }
 
         public IActionResult AccessDenied()
         {
