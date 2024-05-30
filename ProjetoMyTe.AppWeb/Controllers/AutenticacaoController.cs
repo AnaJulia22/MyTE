@@ -85,7 +85,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Cpf!, model.Senha!, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    Utils.IdCpf = User.Identity!.Name/
+                    Utils.IdCpf = User.Identity!.Name;
 
                     return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
 
