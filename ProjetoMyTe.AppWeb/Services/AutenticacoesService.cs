@@ -16,6 +16,8 @@ namespace ProjetoMyTe.AppWeb.Services
         }
         public List <string?> ListarPerfis()
         {
-            return roleManager.Roles.Select(r => r.Name).ToList();        }
+            return roleManager.Roles.Select(r => r.Name).ToList();        
+        }
+
     }
 }
