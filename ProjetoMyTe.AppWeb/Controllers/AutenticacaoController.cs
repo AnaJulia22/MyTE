@@ -57,7 +57,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                         }
                     }
                     await signInManager.SignInAsync(user, isPersistent: false);
-                    return User.IsInRole("GESTOR DE PROJETOS") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
+                    return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
                                                   ? RedirectToAction("ListarRegistros", "RegistroHoras")
                                                   : RedirectToAction("ShowDashboard", "Dashboard");
                 }
@@ -85,8 +85,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 if (result.Succeeded)
                 {
                     Utils.IdCpf = User.Identity!.Name;
-                    return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("USER")
-                                                  ? RedirectToAction("ListarRegistros", "RegistroHoras")
+                    return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
+                                                  ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras")
                                                   //: RedirectToAction("ShowDashboard", "Dashboard");
                                                   : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
 
