@@ -53,9 +53,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 for (int i = 0; i < num_registro; i++)
                 {
                     RegistroHoras rh = new RegistroHoras();
-                    for(int j = 0; j < num_registro; j++)
+                    for (int j = 0; j < num_registro; j++)
                     {
-                        if((int)propridadesLancamentoHoras[j] <= 0)
+                        if ((int)propridadesLancamentoHoras[j] <= 0)
                         {
                             throw new ArgumentException($"Todos os campos devem ser preenchidos.");
                         }
@@ -65,9 +65,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     rh.CpfId = Utils.IdCpf;
                     rh.Dia = quinzena.DiasDoMes[i];
                     rh.Horas = (int)propridadesLancamentoHoras[i + 1];
-                    
+
                     _registroHorasService!.Incluir(rh);
-                   
+
                 }
             }
             catch (Exception ex)
@@ -98,6 +98,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 return View("_Erro", ex);
             }
         }
-        
+
     }
 }
