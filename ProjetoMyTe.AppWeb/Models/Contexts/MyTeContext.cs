@@ -10,7 +10,7 @@ namespace ProjetoMyTe.AppWeb.Models.Contexts
         public DbSet<Colaborador> Colaboradores { get; set; }
         public DbSet<Wbs> Wbss { get; set; }
         public DbSet<RegistroHoras> RegistroHoras { get; set;}
-
+         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
@@ -20,7 +20,7 @@ namespace ProjetoMyTe.AppWeb.Models.Contexts
             modelBuilder.Entity<Colaborador>().ToTable("TB_COLABORADORES");
             modelBuilder.Entity<Wbs>().ToTable("TB_WBS");
             modelBuilder.Entity<RegistroHoras>().ToTable("TB_REGISTRO_DIAS_HORAS");
-
+           
             //Mapeamento das propriedade para as colunas
             modelBuilder.Entity<Cargo>()
                 .Property(p => p.Descricao)
@@ -36,13 +36,13 @@ namespace ProjetoMyTe.AppWeb.Models.Contexts
                 .Property(p => p.CargoId)
                 .HasColumnName("id_cargo");
 
-            //modelBuilder.Entity<Colaborador>()
-            //    .Property(p => p.Administrador)
-            //    .HasColumnName("administrador");
-
             modelBuilder.Entity<Colaborador>()
                 .Property(p => p.Nome)
                 .HasColumnName("nome");
+
+            modelBuilder.Entity<Colaborador>()
+                .Property(p => p.Perfil)
+                .HasColumnName("perfil");
 
             modelBuilder.Entity<Wbs>()
                 .Property(p => p.Codigo)
@@ -77,6 +77,7 @@ namespace ProjetoMyTe.AppWeb.Models.Contexts
             modelBuilder.Entity<RegistroHoras>()
                 .Property(p => p.Horas)
                 .HasColumnName("horas");
+
         }
     }
     

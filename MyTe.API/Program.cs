@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MyTe.API.Controllers;
 using MyTe.API.Models.Contexts;
 using MyTe.API.Services;
 
@@ -14,6 +15,7 @@ builder.Services.AddScoped<CargosService>();
 builder.Services.AddScoped<ColaboradoresService>();
 builder.Services.AddScoped<RegistrosHorasService>();
 builder.Services.AddScoped<WbssService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

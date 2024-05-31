@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjetoMyTe.AppWeb.Models.Common;
 using ProjetoMyTe.AppWeb.Models.Entities;
+using ProjetoMyTe.AppWeb.Services;
 
 namespace ProjetoMyTe.AppWeb.Controllers
 {
@@ -11,12 +12,14 @@ namespace ProjetoMyTe.AppWeb.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly ColaboradoresService colaboradoresService;
 
-        public AutenticacaoController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AutenticacaoController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ColaboradoresService colaboradoresService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
+            this.colaboradoresService = colaboradoresService;
         }
 
         public IActionResult Index()
@@ -44,28 +47,50 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 {
                     UserName = model.Cpf
                 };
-                var result = await userManager.CreateAsync(user, model.Senha!);
-
-                if (result.Succeeded)
+                Utils.IdCpf = user.UserName;
+                try
                 {
-                    if (!string.IsNullOrEmpty(model.Perfil))
+                    if (colaboradoresService.Buscar(Utils.IdCpf!) == null)
                     {
-                        var appRole = await roleManager.FindByNameAsync(model.Perfil);
-                        if (appRole != null)
-                        {
-                            await userManager.AddToRoleAsync(user, model.Perfil);
-                        }
+                        Utils.IdCpf = null;
+                        throw new Exception("Usuário não cadastrado na nossa base de dados de colaboradores");
                     }
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    
-                    return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("USER")
-                                                  ? RedirectToAction("ListarRegistros", "RegistroHoras")
-                                                  : RedirectToAction("ShowDashboard", "Dashboard");
+
+                    var usuarioTemp = colaboradoresService.Buscar(Utils.IdCpf!);
+                    var perfilUsuarioTemp = usuarioTemp!.Perfil;
+                    if (perfilUsuarioTemp != model.Perfil)
+                    {
+                        throw new Exception("Perfil selecionado não corresponde ao perfil do colaborador.");
+                    }
+                    var result = await userManager.CreateAsync(user, model.Senha!);
+
+                    if (result.Succeeded)
+                    {
+                        if (!string.IsNullOrEmpty(model.Perfil))
+                        {
+                            var appRole = await roleManager.FindByNameAsync(model.Perfil);
+                            if (appRole != null)
+                            {
+                                await userManager.AddToRoleAsync(user, model.Perfil);
+                            }
+                        }
+                        await signInManager.SignInAsync(user, isPersistent: false);
+                        return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
+                                                      ? RedirectToAction("ListarRegistros", "RegistroHoras")
+                                                      : RedirectToAction("ShowDashboard", "Dashboard");
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
-                foreach (var error in result.Errors)
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+
+                    return View("_Erro", ex);
                 }
+               
+                
             }
             return View(model);
         }
@@ -86,8 +111,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 if (result.Succeeded)
                 {
                     Utils.IdCpf = User.Identity!.Name;
-                    return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("USER")
-                                                  ? RedirectToAction("ListarRegistros", "RegistroHoras")
+                    return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
+                                                  ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras")
                                                   //: RedirectToAction("ShowDashboard", "Dashboard");
                                                   : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
 

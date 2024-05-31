@@ -41,7 +41,7 @@ namespace ProjetoMyTe.AppWeb.Services
                     Id = item.Id,
                     CargoId = item.CargoId,
                     DescricaoCargo = item.CargoAtuacao!.Descricao,
-                    //Administrador = item.Administrador,
+                    Perfil = item.Perfil,
                     Nome = item.Nome
 
                 };

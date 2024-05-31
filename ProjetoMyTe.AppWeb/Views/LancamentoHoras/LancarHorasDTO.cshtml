@@ -5,24 +5,24 @@
     ViewData["Title"] = "LancarHorasDTO";
 }
 
-<h1>Lançar Horas</h1>
+<h1 class="mt-5">Lançar Horas</h1>
 @{
     var quinzena = quinzenaService.CriarQuinzena();
 }
-<div class="row ">
-    <div class="col-md-4">
-        <form asp-action="LancarHorasDTO" class="mt-5">
-            <table class="table table-bordered">
-                <tr>
-                    <div class="form-group mb-3">
-                        <select asp-for="WbsId" asp-items="(SelectList)ViewBag.ListaDeWbss" class="form-select">
-                            <option value="0">SELECIONE A WBS</option>
-                        </select>
-                        <span asp-validation-for="WbsId" class="text-danger"></span>
-                    </div>
-                </tr>
-                <tr><div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    
+<div class="container mt-3">
+    <form asp-action="LancarHorasDTO" class="mt-5">
+        <tr>
+            <div class="form-group mb-3">
+                <select asp-for="WbsId" asp-items="(SelectList)ViewBag.ListaDeWbss" class="form-select">
+                    <option value="0">SELECIONE A WBS</option>
+                </select>
+                <span asp-validation-for="WbsId" class="text-danger"></span>
+            </div>
+        </tr>
+        <tr>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+                <table class="table table-bordered">
                     <th class="form-group">
                         <label class="control-label">@quinzena.GetDia(1).ToString("d/M/yy ddd")</label>
                         <input type="number" asp-for="HorasDia1" class="form-control" min="0" max="8" />
@@ -93,46 +93,65 @@
                         <th class="form-group">
                             <label class="control-label">@quinzena.GetDia(14).ToString("d/M/yy ddd")</label>
                             <input type="number" asp-for="HorasDia14" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia14" class="text-danger"></span>
-                    </th>
+                            <span asp-validation-for="HorasDia14" class="text-danger"></span>
+                        </th>
                     }
                     @if (quinzena.DiasDoMes!.Count > 14)
                     {
                         <th class="form-group">
                             <label class="control-label">@quinzena.GetDia(15).ToString("d/M/yy ddd")</label>
                             <input type="number" asp-for="HorasDia15" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia15" class="text-danger"></span>
-                    </th>
+                            <span asp-validation-for="HorasDia15" class="text-danger"></span>
+                        </th>
                     }
                     @if (quinzena.DiasDoMes!.Count > 15)
                     {
                         <th class="form-group">
                             <label class="control-label">@quinzena.GetDia(16).ToString("d/M/yy ddd")</label>
 
-                            <input type="number" asp-for="HorasDia16" class="form-control" min="0" max="8"/>
+                            <input type="number" asp-for="HorasDia16" class="form-control" min="0" max="8" />
                             <span asp-validation-for="HorasDia16" class="text-danger"></span>
                         </th>
                     }
+                </table>
+        </tr>
 
-                   
-                </tr>
-            </table>
-            <span class="mb-3">
-                <input type="submit" value="Lançar horas" class="btn btn-primary w-100" style="background-color: #890078; " />
-            </span>
+        <div class="mt-4">
+            <div class="row">
+                <div class="col">
+                    <input type="submit" value="Lançar horas" class="btn btn-primary" style="background-color: #890078; " />
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
+                    <a asp-action="ListarRegistrosQuinzena" asp-controller="LancamentoHoras" class="btn btn-primary" style="background-color: #890078; ">Listar Último Lançamento</a>
+                </div>
+            </div>
+        </div>
+        @*  <span class="mb-3">
+        <a asp-action="#" class="btn btn-primary w-100" style="background-color: #890078;">Adicionar Horas em outra WBS</a>
+        </span>
+        <span class="mb-3">
+        <a asp-action="#" class="btn btn-primary w-100" style="background-color: #890078;">Cancelar</a>
+        </span> *@
+    </form>
+</div>
 
-            <p>
-                <a asp-action="ListarRegistrosQuinzena" asp-controller="LancamentoHoras" class="btn btn-primary" style="background-color: #890078; ">Listar Último Lançamento</a>
-            </p>
-           @*  <span class="mb-3">
-                <a asp-action="#" class="btn btn-primary w-100" style="background-color: #890078;">Adicionar Horas em outra WBS</a>
-            </span>
-            <span class="mb-3">
-                <a asp-action="#" class="btn btn-primary w-100" style="background-color: #890078;">Cancelar</a>
-            </span> *@
-        </form>
-    </div>
-</div>
-<div>
-  
-</div>
+
+<style>
+
+    .btn-primary {
+        border-radius: 10px;
+        border: none;
+        background-color: #890078;
+    }
+
+        .btn-primary:hover {
+            background-color: #6b056b;
+        }
+
+    .table th,
+    .table td {
+        font-size: 13px;
+    }
+</style>
