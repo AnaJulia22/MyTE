@@ -22,8 +22,6 @@ namespace ProjetoMyTe.AppWeb.Models.Common
 
         }
         public static string? IdCpf = null;
-
-        public static UsuarioLogado? UsuarioLogado { get; set; } = new UsuarioLogado();
     }
 }
 

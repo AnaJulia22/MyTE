@@ -94,7 +94,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
                                               : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
 
                 }
-                Utils.UsuarioLogado.NomeFuncionario = "Pedro Scooby";
                 ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");
             }
 
@@ -104,7 +103,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            Utils.UsuarioLogado!.IniciarPropriedades();
             return RedirectToAction("Login", "Autenticacao");
         }
 
