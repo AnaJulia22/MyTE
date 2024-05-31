@@ -60,6 +60,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     var perfilUsuarioTemp = usuarioTemp!.Perfil;
                     if (perfilUsuarioTemp != model.Perfil)
                     {
+                        Utils.IdCpf = null;
                         throw new Exception("Perfil selecionado não corresponde ao perfil do colaborador.");
                     }
                     var result = await userManager.CreateAsync(user, model.Senha!);
@@ -95,15 +96,15 @@ namespace ProjetoMyTe.AppWeb.Controllers
             return View(model);
         }
 
+
         [HttpGet]
         public IActionResult Login()
         {
-
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LogonViewModel model)
+        public async Task<IActionResult> Login(LogonViewModel model, string? returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -111,12 +112,15 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 if (result.Succeeded)
                 {
                     Utils.IdCpf = User.Identity!.Name;
+
                     return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
-                                                  ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras")
-                                                  //: RedirectToAction("ShowDashboard", "Dashboard");
-                                                  : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
+
+                                              ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras")
+                                              //: RedirectToAction("ShowDashboard", "Dashboard");
+                                              : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
 
                 }
+                
                 ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");
             }
 
@@ -126,9 +130,10 @@ namespace ProjetoMyTe.AppWeb.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            Utils.IdCpf = null;
             return RedirectToAction("Login", "Autenticacao");
         }
-        
+
         [HttpGet]
         public IActionResult AlterarSenha()
         {
@@ -145,9 +150,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 {
                     return RedirectToAction("Login", "Autenticacao");
                 }
-                
+
                 var result = await userManager.ChangePasswordAsync(user, model.SenhaAntiga!, model.SenhaNova!);
-                
+
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
@@ -156,13 +161,13 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     }
                     return View();
                 }
-                
+
                 await signInManager.RefreshSignInAsync(user);
-                
+
                 return RedirectToAction("ChangePasswordConfirmation", "Autenticacao");
             }
 
-            return View(model);  
+            return View(model);
         }
 
         [HttpGet]

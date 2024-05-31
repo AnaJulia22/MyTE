@@ -8,12 +8,12 @@ namespace ProjetoMyTe.AppWeb.Models.Entities
         public int Id { get; set; }
         [MinLength(4, ErrorMessage = "O nome de usuário deve ter no mínimo 4 caracteres.")]
         //[MaxLength(10, ErrorMessage = "O nome de usuário deve ter no mínimo 4 caracteres.")]
-        [Required(ErrorMessage ="Insira o código", AllowEmptyStrings = false)]
+        [Required(ErrorMessage = "Insira o código", AllowEmptyStrings = false)]
         [CustomValidation(typeof(Wbs), "ValidarTamanhoMaximo")]
         [DisplayName("Código")]
         public string? Codigo { get; set; }
-       
-        [Required(ErrorMessage ="Descrição Inválida", AllowEmptyStrings = false)]
+
+        [Required(ErrorMessage = "Descrição Inválida", AllowEmptyStrings = false)]
         [DisplayName("Descrição")]
         public string? Descricao { get; set; }
 
@@ -24,7 +24,7 @@ namespace ProjetoMyTe.AppWeb.Models.Entities
         {
             if (value != null && value.Length > 10)
             {
-                return new ValidationResult("O tamanho máximo é 10 caracteres.", new[] { context.MemberName });
+                return new ValidationResult("O tamanho máximo é 10 caracteres.", new List<string> { context.MemberName! });
             }
 
             return ValidationResult.Success;

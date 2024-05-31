@@ -3,12 +3,52 @@
 @{
     ViewData["Title"] = "RemoverWbs";
 }
-
-<h3>Tem certeza que deseja remover a Wbs '@Model.Descricao'?</h3>
-<div>
-        
-    <form asp-action="RemoverWbs">
-        <input type="submit" value="Sim, confirmar!" class="btn btn-danger" /> |
-        <a asp-action="ListarWbss">Voltar para lista</a>
-    </form>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <h3 class="card-title text-center">Tem certeza que deseja remover a Wbs '@Model.Descricao'?</h3>
+            <hr />
+            <row class="row justify-content-center">
+                <div class="col-md-6">
+                    <form asp-action="RemoverWbs">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-danger btn-lg">
+                                Sim, remover
+                            </button>
+                            <a asp-action="ListarWbss" class="btn btn-secondary btn-lg">Não, voltar para a lista</a>
+                        </div>
+                    </form>
+                </div>
+            </row>
+        </div>
+    </div>
 </div>
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .btn-danger, .btn-secondary {
+        border-radius: 10px;
+        border: none;
+    }
+
+    .btn-secondary {
+        background-color: #8c9299;
+    }
+
+    .btn-lg {
+        padding: 5px 15px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+
+    .card-title {
+        color: #333;
+    }
+</style>
