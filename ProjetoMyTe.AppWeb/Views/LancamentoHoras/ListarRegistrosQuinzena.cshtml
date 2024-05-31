@@ -73,14 +73,10 @@
                         </td>
                         <td>
 
-                            <div class="row gx-2">
-                                <div class="col">
-                                    <a asp-action="AlterarRegistro" asp-controller="RegistroHoras" asp-route-id="@item.Id" class="btn btn-primary" style="background-color: #890078; ">Alterar</a>
-                                </div>
-                                <div class="col">
-                                    <a asp-action="RemoverRegistro" asp-controller="RegistroHoras" asp-route-id="@item.Id" class="btn btn-primary" style="background-color: #890078; ">Remover</a>
-                                </div>
-                            </div>
+                            <a asp-action="AlterarRegistro" asp-controller="RegistroHoras" asp-route-id="@item.Id"><img src="~/lib/imagens/alterar.png" alt="Alterar" width="30" height="30" /></a>
+
+                            <a asp-action="RemoverRegistro" asp-controller="RegistroHoras" asp-route-id="@item.Id"><img src="~/lib/imagens/trash.png" alt="Deletar" width="30" height="30" /></a>
+
 
                         </td>
                     </tr>

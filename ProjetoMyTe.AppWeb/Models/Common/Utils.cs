@@ -24,4 +24,3 @@ namespace ProjetoMyTe.AppWeb.Models.Common
         public static string? IdCpf = null;
     }
 }
-
