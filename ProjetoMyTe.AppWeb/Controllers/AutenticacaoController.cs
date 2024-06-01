@@ -114,7 +114,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     Utils.IdCpf = User.Identity!.Name;
 
                     return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
-
                                               ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras")
                                               //: RedirectToAction("ShowDashboard", "Dashboard");
                                               : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
@@ -129,6 +128,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            Utils.IdCpf = null;
             return RedirectToAction("Login", "Autenticacao");
         }
 
