@@ -8,7 +8,7 @@ namespace ProjetoMyTe.AppWeb.Models.Common
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            string[] roleNames = { "ADMIN", "COLABORADOR", "GESTOR DE PROJETOS" };
+            string[] roleNames = { "ADMIN", "COLABORADOR", "GESTOR DE PROJETOS" , "RH"};
 
             IdentityResult result;
             foreach (var role in roleNames)
@@ -22,5 +22,6 @@ namespace ProjetoMyTe.AppWeb.Models.Common
 
         }
         public static string? IdCpf = null;
+        public static int totalHorasWbs = 0;
     }
 }

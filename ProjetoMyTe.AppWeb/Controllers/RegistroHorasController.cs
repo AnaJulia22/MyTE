@@ -62,7 +62,11 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 {
                     return View();
                 }
-
+                var registro = registroHorasService!.RegistroExiste(Utils.IdCpf!, registroHoras.Dia, registroHoras.WbsId);
+                if (registro.Any())
+                {
+                    throw new Exception($"Não é permitido lançar horas para mesma WBS no mesmo dia: {registroHoras.Dia}");
+                }
                 registroHoras.CpfId = Utils.IdCpf;
                 registroHoras.DataRegistro = DateTime.Now;
                 registroHorasService.Incluir(registroHoras);

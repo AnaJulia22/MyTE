@@ -14,6 +14,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
         private readonly RegistroHorasService? _registroHorasService;
         private readonly WbssService? _wbssService;
         private readonly QuinzenasService _quinzenasService;
+        
 
         public LancamentoHorasController(RegistroHorasService registroHorasService, WbssService wbssService, QuinzenasService quinzenasService)
         {
@@ -50,24 +51,36 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 }
                 var quinzena = _quinzenasService.CriarQuinzena();
                 var num_registro = quinzena.DiasDoMes!.Count;
+
+                RegistroHoras rh = new RegistroHoras();
+                if ((int)propridadesLancamentoHoras[0] == 0)
+                {
+                    throw new ArgumentException($"Necessário informar uma Wbs.");
+                }
+                    for (int j = 0; j < num_registro; j++)
+                {
+                    if ((int)propridadesLancamentoHoras[j] < 0)
+                    {
+                        throw new ArgumentException($"Todos os campos devem ser preenchidos.");
+                    }
+
+                    var registro = _registroHorasService!.RegistroExiste(Utils.IdCpf!, quinzena.DiasDoMes[j], (int)propridadesLancamentoHoras[0]);
+                        if (registro.Any())
+                    {
+                        throw new Exception($"Não é permitido lançar horas para mesma WBS no mesmo dia: {quinzena.DiasDoMes[j+1]}");
+                    }
+                }
+                
                 for (int i = 0; i < num_registro; i++)
                 {
-                    RegistroHoras rh = new RegistroHoras();
-                    for (int j = 0; j < num_registro; j++)
-                    {
-                        if ((int)propridadesLancamentoHoras[j] <= 0)
-                        {
-                            throw new ArgumentException($"Todos os campos devem ser preenchidos.");
-                        }
-                    }
                     rh.DataRegistro = DateTime.Now;
                     rh.WbsId = (int)propridadesLancamentoHoras[0];
                     rh.CpfId = Utils.IdCpf;
                     rh.Dia = quinzena.DiasDoMes[i];
-                    rh.Horas = (int)propridadesLancamentoHoras[i + 1];
+                    rh.Horas = (int)propridadesLancamentoHoras[i+1];
 
                     _registroHorasService!.Incluir(rh);
-
+                    
                 }
             }
             catch (Exception ex)
@@ -77,6 +90,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
             }
             return View();
         }
+
+
 
         [HttpGet]
         public IActionResult ListarRegistrosQuinzena()

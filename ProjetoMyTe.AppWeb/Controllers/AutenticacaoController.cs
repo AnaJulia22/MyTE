@@ -30,17 +30,17 @@ namespace ProjetoMyTe.AppWeb.Controllers
         [HttpGet]
         public IActionResult Registrar()
         {
-            var roles = roleManager.Roles.ToList();
-            var listaRoles = roles.Select(p => p.Name).ToList();
-            ViewBag.Roles = new SelectList(listaRoles);
+            //var roles = roleManager.Roles.ToList();
+            //var listaRoles = roles.Select(p => p.Name).ToList();
+            //ViewBag.Roles = new SelectList(listaRoles);
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Registrar(UsuarioViewModel model)
         {
-            var roles = roleManager.Roles.ToList();
-            var listaRoles = roles.Select(p => p.Name).ToList();
-            ViewBag.Roles = new SelectList(listaRoles);
+            //var roles = roleManager.Roles.ToList();
+            //var listaRoles = roles.Select(p => p.Name).ToList();
+            //ViewBag.Roles = new SelectList(listaRoles);
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
@@ -57,12 +57,12 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     }
 
                     var usuarioTemp = colaboradoresService.Buscar(Utils.IdCpf!);
-                    var perfilUsuarioTemp = usuarioTemp!.Perfil;
-                    if (perfilUsuarioTemp != model.Perfil)
-                    {
-                        Utils.IdCpf = null;
-                        throw new Exception("Perfil selecionado não corresponde ao perfil do colaborador.");
-                    }
+                    model.Perfil = usuarioTemp!.Perfil;
+                    //if (perfilUsuarioTemp != model.Perfil)
+                    //{
+                    //    Utils.IdCpf = null;
+                    //    throw new Exception("Perfil selecionado não corresponde ao perfil do colaborador.");
+                    //}
                     var result = await userManager.CreateAsync(user, model.Senha!);
 
                     if (result.Succeeded)
@@ -77,7 +77,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                         }
                         await signInManager.SignInAsync(user, isPersistent: false);
                         return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
-                                                      ? RedirectToAction("ListarRegistros", "RegistroHoras")
+                                                      ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras") : User.IsInRole("RH")
+                                                      ? RedirectToAction("AdicionarColaborador", "Colaboradores")
                                                       : RedirectToAction("ShowDashboard", "Dashboard");
                     }
                     foreach (var error in result.Errors)
@@ -113,14 +114,18 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 {
                     Utils.IdCpf = User.Identity!.Name;
 
+
                     return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
+                                                      ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras") : User.IsInRole("RH")
+                                                      ? RedirectToAction("AdicionarColaborador", "Colaboradores")
+                                                      : RedirectToAction("ShowDashboard", "Dashboard");
 
-                                              ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras")
-                                              //: RedirectToAction("ShowDashboard", "Dashboard");
-                                              : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
-
+                    //return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
+                    //                                ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras")
+                    //                                : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
+                    //: RedirectToAction("ShowDashboard", "Dashboard");
                 }
-                
+
                 ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");
             }
 

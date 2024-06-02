@@ -41,9 +41,10 @@ namespace ProjetoMyTe.AppWeb.DAL
         {
             return Context.Set<T>().Find(id);
         }
-              
+        
+
         // remover do uma entidade pelo id
-       
+
         public void Remover(T item)
         {
             Context.Entry(item).State = EntityState.Deleted;
