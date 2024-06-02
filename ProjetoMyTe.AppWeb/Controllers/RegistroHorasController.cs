@@ -69,7 +69,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 }
                 registroHoras.CpfId = Utils.IdCpf;
                 registroHoras.DataRegistro = DateTime.Now;
+                
                 registroHorasService.Incluir(registroHoras);
+                
                 return RedirectToAction("ListarRegistros");
             }
             catch (Exception e)

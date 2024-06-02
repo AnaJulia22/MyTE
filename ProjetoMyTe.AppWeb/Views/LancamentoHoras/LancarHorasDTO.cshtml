@@ -11,241 +11,259 @@
     var quinzena = quinzenaService.CriarQuinzena();
 }
 <div class="container mt-3">
-    <form asp-action="LancarHorasDTO" class="mt-5">
-        <tr>
-            <div class="form-group mb-3">
-                <select asp-for="WbsId" asp-items="(SelectList)ViewBag.ListaDeWbss" class="form-select">
-                    <option value="0">SELECIONE A WBS</option>
-                </select>
-                <span asp-validation-for="WbsId" class="text-danger"></span>
-            </div>
-        </tr>
-        <tr>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form id="formAdicionarHoras" asp-action="LancarHorasDTO" class="mt-5">
+        <div id="EspacoLancamento">
+            <tr>
+                <div class="form-group mb-3">
+                    <select asp-for="WbsId" asp-items="(SelectList)ViewBag.ListaDeWbss" class="form-select">
+                        <option value="0">SELECIONE A WBS</option>
+                    </select>
+                    <span asp-validation-for="WbsId" class="text-danger"></span>
+                </div>
+            </tr>
+            <tr>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            
+
                 <table class="table table-bordered">
                     <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(1).ToString("d/M/yy ddd")</label>
-                        
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(1)))
-                    {
-                        <input type="number" asp-for="HorasDia1" class="form-control" min="0" max="8" disabled/>
-                    }
-                    else{ 
-                        <input type="number" asp-for="HorasDia1" class="form-control" min="0" max="8" />
-                                                
+                        <label class="control-label">@quinzena.GetDia(1).ToString("d/M/yy   ddd")</label>
+
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(1)))
+                        {
+                            <input type="number" asp-for="HorasDia1" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia1" class="form-control" min="0" max="8" />
+
                         }
                         <span asp-validation-for="HorasDia1" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(2).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(2)))
-                    {
-                        <input type="number" asp-for="HorasDia2" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia2" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(2).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(2)))
+                        {
+                            <input type="number" asp-for="HorasDia2" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia2" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia2" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(3).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(3)))
-                    {
-                        <input type="number" asp-for="HorasDia3" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia3" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(3).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(3)))
+                        {
+                            <input type="number" asp-for="HorasDia3" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia3" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia3" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(4).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(4)))
-                    {
-                        <input type="number" asp-for="HorasDia4" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia4" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(4).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(4)))
+                        {
+                            <input type="number" asp-for="HorasDia4" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia4" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia4" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(5).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(5)))
-                    {
-                        <input type="number" asp-for="HorasDia5" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia5" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(5).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(5)))
+                        {
+                            <input type="number" asp-for="HorasDia5" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia5" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia5" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(6).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(6)))
-                    {
-                        <input type="number" asp-for="HorasDia6" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia6" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(6).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(6)))
+                        {
+                            <input type="number" asp-for="HorasDia6" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia6" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia6" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(7).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(7)))
-                    {
-                        <input type="number" asp-for="HorasDia7" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia7" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(7).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(7)))
+                        {
+                            <input type="number" asp-for="HorasDia7" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia7" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia7" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(8).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(8)))
-                    {
-                        <input type="number" asp-for="HorasDia8" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia8" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(8).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(8)))
+                        {
+                            <input type="number" asp-for="HorasDia8" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia8" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia8" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(9).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(9)))
-                    {
-                        <input type="number" asp-for="HorasDia9" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia9" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(9).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(9)))
+                        {
+                            <input type="number" asp-for="HorasDia9" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia9" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia9" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(10).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(10)))
-                    {
-                        <input type="number" asp-for="HorasDia10" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia10" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(10).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(10)))
+                        {
+                            <input type="number" asp-for="HorasDia10" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia10" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia10" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(11).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(11)))
-                    {
-                        <input type="number" asp-for="HorasDia11" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia11" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(11).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(11)))
+                        {
+                            <input type="number" asp-for="HorasDia11" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia11" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia11" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(12).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(12)))
-                    {
-                        <input type="number" asp-for="HorasDia12" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia12" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(12).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(12)))
+                        {
+                            <input type="number" asp-for="HorasDia12" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia12" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia12" class="text-danger"></span>
                     </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(13).ToString("d/M/yy ddd")</label>
-                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(13)))
-                    {
-                        <input type="number" asp-for="HorasDia13" class="form-control" min="0" max="8" disabled />
-                    }
-                    else
-                    {
-                        <input type="number" asp-for="HorasDia13" class="form-control" min="0" max="8" />
 
-                    }
+                    <th class="form-group">
+                        <label class="control-label">@quinzena.GetDia(13).ToString("d/M/yy   ddd")</label>
+                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(13)))
+                        {
+                            <input type="number" asp-for="HorasDia13" class="form-control" min="0" max="8" disabled />
+                        }
+                        else
+                        {
+                            <input type="number" asp-for="HorasDia13" class="form-control" min="0" max="8" />
+
+                        }
                         <span asp-validation-for="HorasDia13" class="text-danger"></span>
                     </th>
+
                     @if (quinzena.DiasDoMes!.Count > 13)
                     {
                         <th class="form-group">
-                            <label class="control-label">@quinzena.GetDia(14).ToString("d/M/yy ddd")</label>
-                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(14)))
-                        {
-                            <input type="number" asp-for="HorasDia14" class="form-control" min="0" max="8" disabled />
-                        }
-                        else
-                        {
-                            <input type="number" asp-for="HorasDia14" class="form-control" min="0" max="8" />
+                            <label class="control-label">@quinzena.GetDia(14).ToString("d/M/yy   ddd")</label>
+                            @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(14)))
+                            {
+                                <input type="number" asp-for="HorasDia14" class="form-control" min="0" max="8" disabled />
+                            }
+                            else
+                            {
+                                <input type="number" asp-for="HorasDia14" class="form-control" min="0" max="8" />
 
-                        }
+                            }
                             <span asp-validation-for="HorasDia14" class="text-danger"></span>
                         </th>
                     }
+
                     @if (quinzena.DiasDoMes!.Count > 14)
                     {
                         <th class="form-group">
-                            <label class="control-label">@quinzena.GetDia(15).ToString("d/M/yy ddd")</label>
-                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(15)))
-                        {
-                            <input type="number" asp-for="HorasDia15" class="form-control" min="0" max="8" disabled />
-                        }
-                        else
-                        {
-                            <input type="number" asp-for="HorasDia15" class="form-control" min="0" max="8" />
+                            <label class="control-label">@quinzena.GetDia(15).ToString("d/M/yy   ddd")</label>
+                            @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(15)))
+                            {
+                                <input type="number" asp-for="HorasDia15" class="form-control" min="0" max="8" disabled />
+                            }
+                            else
+                            {
+                                <input type="number" asp-for="HorasDia15" class="form-control" min="0" max="8" />
 
-                        }
+                            }
                             <span asp-validation-for="HorasDia15" class="text-danger"></span>
                         </th>
                     }
+
                     @if (quinzena.DiasDoMes!.Count > 15)
                     {
                         <th class="form-group">
-                            <label class="control-label">@quinzena.GetDia(16).ToString("d/M/yy ddd")</label>
+                            <label class="control-label">@quinzena.GetDia(16).ToString("d/M/yy   ddd")</label>
 
-                        @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(16)))
-                        {
-                            <input type="number" asp-for="HorasDia16" class="form-control" min="0" max="8" disabled />
-                        }
-                        else
-                        {
-                            <input type="number" asp-for="HorasDia16" class="form-control" min="0" max="8" />
+                            @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(16)))
+                            {
+                                <input type="number" asp-for="HorasDia16" class="form-control" min="0" max="8" disabled />
+                            }
+                            else
+                            {
+                                <input type="number" asp-for="HorasDia16" class="form-control" min="0" max="8" />
 
-                        }
+                            }
                             <span asp-validation-for="HorasDia16" class="text-danger"></span>
                         </th>
                     }
                 </table>
-               
-        </tr>
+
+            </tr>
+        </div>
 
         <div class="mt-4">
             <div class="row">
@@ -266,6 +284,28 @@
         <a asp-action="#" class="btn btn-primary w-100" style="background-color: #890078;">Cancelar</a>
         </span> *@
     </form>
+    <button id="btnAdicionar">Adicionar WBS</button>
+    <button id="btnEnviar">Enviar Lançamento</button>
+
+  @*   @if (Model.MediaSala != null && Model.MediaSala.Any())
+    {
+        @Html.Partial("_Validar", Model)
+    } *@
+
+    @section Scripts {
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#btnAdicionarWBS').click(function () {
+                    $('#formAdicionarHoras').toggle();
+                });
+
+                $('#btnEnviar').click(function () {
+                    window.location.href = '/LancamentoHoras/LancarHorasDTO';
+                });
+            });
+        </script>
+    }
 </div>
 
 

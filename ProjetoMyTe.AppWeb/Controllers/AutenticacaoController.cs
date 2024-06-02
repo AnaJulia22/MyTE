@@ -30,17 +30,11 @@ namespace ProjetoMyTe.AppWeb.Controllers
         [HttpGet]
         public IActionResult Registrar()
         {
-            //var roles = roleManager.Roles.ToList();
-            //var listaRoles = roles.Select(p => p.Name).ToList();
-            //ViewBag.Roles = new SelectList(listaRoles);
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Registrar(UsuarioViewModel model)
         {
-            //var roles = roleManager.Roles.ToList();
-            //var listaRoles = roles.Select(p => p.Name).ToList();
-            //ViewBag.Roles = new SelectList(listaRoles);
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
@@ -58,11 +52,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
                     var usuarioTemp = colaboradoresService.Buscar(Utils.IdCpf!);
                     model.Perfil = usuarioTemp!.Perfil;
-                    //if (perfilUsuarioTemp != model.Perfil)
-                    //{
-                    //    Utils.IdCpf = null;
-                    //    throw new Exception("Perfil selecionado não corresponde ao perfil do colaborador.");
-                    //}
                     var result = await userManager.CreateAsync(user, model.Senha!);
 
                     if (result.Succeeded)
@@ -120,10 +109,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
                                                       ? RedirectToAction("AdicionarColaborador", "Colaboradores")
                                                       : RedirectToAction("ShowDashboard", "Dashboard");
 
-                    //return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
-                    //                                ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras")
-                    //                                : RedirectToAction("LancarHorasDTO", "LancamentoHoras");
-                    //: RedirectToAction("ShowDashboard", "Dashboard");
                 }
 
                 ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");

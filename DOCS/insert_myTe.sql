@@ -3,24 +3,24 @@ GO
 INSERT INTO TB_CARGOS (nomeCargo) VALUES ('Desenvolvedor Front-End');
 INSERT INTO TB_CARGOS (nomeCargo) VALUES ('Desenvolvedor Back-End');
 INSERT INTO TB_CARGOS (nomeCargo) VALUES ('Engenheiro de Software');
-INSERT INTO TB_CARGOS (nomeCargo) VALUES ('Analista de SeguranÁa da InformaÁ„o');
+INSERT INTO TB_CARGOS (nomeCargo) VALUES ('Analista de Seguran√ßa da Informa√ß√£o');
 INSERT INTO TB_CARGOS (nomeCargo) VALUES ('Administrador de Banco de Dados');
 
-INSERT INTO TB_COLABORADORES (cpf, id_cargo, administrador) VALUES ('76493417805', 1, 1); -- Desenvolvedor Front-End, administrador
-INSERT INTO TB_COLABORADORES (cpf, id_cargo, administrador) VALUES ('61212235886', 2, 0); -- Desenvolvedor Back-End, n„o administrador
-INSERT INTO TB_COLABORADORES (cpf, id_cargo, administrador) VALUES ('49827505807', 3, 0); -- Engenheiro de Software, n„o administrador
-INSERT INTO TB_COLABORADORES (cpf, id_cargo, administrador) VALUES ('96438992844', 4, 1); -- Analista de SeguranÁa da InformaÁ„o, administrador
-INSERT INTO TB_COLABORADORES (cpf, id_cargo, administrador) VALUES ('99715464858', 5, 0); -- Administrador de Banco de Dados, n„o administrador
+INSERT INTO TB_COLABORADORES (cpf, id_cargo, nome, perfil ) VALUES ('76493417805', 1, 'Clarice Lispector', 'GESTOR DE PROJETOS'); -- Desenvolvedor Front-End, administrador
+INSERT INTO TB_COLABORADORES (cpf, id_cargo, nome, perfil) VALUES ('61212235886', 2, 'Machado de Assis', 'COLABORADOR'); -- Desenvolvedor Back-End, n√£o administrador
+INSERT INTO TB_COLABORADORES (cpf, id_cargo, nome, perfil) VALUES ('49827505807', 3, 'E√ßa de Queir√≥z', 'ADMIN'); -- Engenheiro de Software, n√£o administrador
+INSERT INTO TB_COLABORADORES (cpf, id_cargo, nome, perfil) VALUES ('96438992844', 4, 'Fernando Pessoa', 'GESTOR DE PROJETOS'); -- Analista de Seguran√ßa da Informa√ß√£o, administrador
+INSERT INTO TB_COLABORADORES (cpf, id_cargo, nome, perfil) VALUES ('99715464858', 5, 'Vinicius de Moraes', 'COLABORADOR'); -- Administrador de Banco de Dados, n√£o administrador
 
-INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS001', 'Desenvolvimento de sistema de gest„o de vendas', 1);
-INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS001', 'Desenvolvimento de sistema de gest„o de vendas', 1); -- Chargeability
-INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS002', 'Desenvolvimento de sistema de controle de estoque', 1); -- Chargeability
-INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS003', 'Desenvolvimento de aplicativo mobile para controle financeiro', 1); -- Chargeability
-INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS004', 'Desenvolvimento de plataforma de e-commerce', 1); -- Chargeability
-INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS005', 'IntegraÁ„o de sistemas legados', 2); -- Non-chargeability
-INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS006', 'AtualizaÁ„o de tecnologia em sistema de RH', 1); -- Chargeability
-INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS007', 'Desenvolvimento de sistema de gest„o de projetos', 1); -- Chargeability
-INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS008', 'ImplementaÁ„o de CRM corporativo', 1); -- Chargeability
+INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBSPDR001', 'Day Off', 1);
+INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBSPDR002', 'F√©rias', 1);
+INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBSPDR003', 'Sem tarefa', 1); -- Chargeability
+INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS001', 'Desenvolvimento de aplicativo mobile para controle financeiro', 1); -- Chargeability
+INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS002', 'Desenvolvimento de plataforma de e-commerce', 1); -- Chargeability
+INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS003', 'Integra√ß√£o de sistemas legados', 2); -- Non-chargeability
+INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS004', 'Atualiza√ß√£o de tecnologia em sistema de RH', 1); -- Chargeability
+INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS005', 'Desenvolvimento de sistema de gest√£o de projetos', 1); -- Chargeability
+INSERT INTO TB_WBS (codigo, descricao, tipo) VALUES ('WBS006', 'Implementa√ß√£o de CRM corporativo', 1); -- Chargeability
 
 -- Registro de dias e horas para colaborador 1
 INSERT INTO TB_REGISTRO_DIAS_HORAS (data_registro, id_wbs, cpf, dia, horas) VALUES ('2024-05-01 08:00:00', 1, '76493417805', '2024-05-01', 8);
