@@ -112,7 +112,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
                 registroHoras.DataRegistro = DateTime.Now;
                 registroHorasService.Alterar(registroHoras);
-                return RedirectToAction("ListarRegistros"); // Requisição get
+                return RedirectToAction("ListarRegistrosQuinzena"); // Requisição get
             }
             catch (Exception e)
             {
@@ -121,37 +121,45 @@ namespace ProjetoMyTe.AppWeb.Controllers
             }
         }
 
-        [HttpGet]
+        //[HttpGet]
+        //public IActionResult RemoverRegistro(int id)
+        //{
+        //    try
+        //    {
+        //        if (id <= 0)
+        //        {
+        //            throw new
+        //                ArgumentException($"O valor informado na URL ({id}) é inválido");
+        //        }
+
+        //        RegistroHoras? registroHoras = registroHorasService.Buscar(id);
+        //        if (registroHoras == null)
+        //        {
+        //            throw new ArgumentException($"Nenhum objeto com este id: {id}");
+        //        }
+        //        return View(registroHoras);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return View("_Erro", e);
+        //    }
+        //}
+
+        [HttpPost]
         public IActionResult RemoverRegistro(int id)
         {
             try
             {
-                if (id <= 0)
+                var registroExistente = registroHorasService.Buscar(id);
+                if (registroExistente == null)
                 {
-                    throw new
-                        ArgumentException($"O valor informado na URL ({id}) é inválido");
+                    Console.WriteLine("NAO ENCONTRADO");
+                    return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras"); 
                 }
 
-                RegistroHoras? registroHoras = registroHorasService.Buscar(id);
-                if (registroHoras == null)
-                {
-                    throw new ArgumentException($"Nenhum objeto com este id: {id}");
-                }
-                return View(registroHoras);
-            }
-            catch (Exception e)
-            {
-                return View("_Erro", e);
-            }
-        }
-
-        [HttpPost]
-        public IActionResult RemoverRegistro(RegistroHoras registroHoras)
-        {
-            try
-            {
-                registroHorasService.Remover(registroHoras);
-                return RedirectToAction("ListarRegistros");
+                registroHorasService.Remover(registroExistente!);
+                return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras");
+                  
             }
             catch (Exception e)
             {

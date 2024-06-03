@@ -107,35 +107,41 @@ namespace ProjetoMyTe.AppWeb.Controllers
             }
         }
 
-        [HttpGet]
+        //[HttpGet]
+        //public IActionResult RemoverWbs(int id)
+        //{
+        //    try
+        //    {
+        //        if (id <= 0)
+        //        {
+        //            throw new ArgumentException($"Valor de id ({id}) eh invalido!");
+        //        }
+        //        Wbs? wbs = wbssService.Buscar(id);
+        //        if (wbs == null)
+        //        {
+        //            throw new ArgumentException($"A wbs de id ({id}) não foi encontrado!");
+        //        }
+        //        return View(wbs);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
+        [HttpPost]
         public IActionResult RemoverWbs(int id)
         {
             try
             {
-                if (id <= 0)
+                var WbsExistente = wbssService.Buscar(id);
+                if (WbsExistente == null)
                 {
-                    throw new ArgumentException($"Valor de id ({id}) eh invalido!");
+                    Console.WriteLine("NAO ENCONTRADO");
+                    return RedirectToAction("ListarWbss");
                 }
-                Wbs? wbs = wbssService.Buscar(id);
-                if (wbs == null)
-                {
-                    throw new ArgumentException($"A wbs de id ({id}) não foi encontrado!");
-                }
-                return View(wbs);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        [HttpPost]
-        public IActionResult RemoverWbs(Wbs wbs)
-        {
-            try
-            {
-                wbssService?.Remover(wbs);  
+                wbssService?.Remover(WbsExistente!);  
                 return RedirectToAction("ListarWbss");
             }
             catch (Exception)
