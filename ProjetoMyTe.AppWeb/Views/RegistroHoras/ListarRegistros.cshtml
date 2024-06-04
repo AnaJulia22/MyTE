@@ -8,6 +8,13 @@
     <a asp-action="IncluirRegistro" class="btn btn-primary">Novo Registro +</a>
 </p>
 
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="temp-alert" class="alert alert-success mt-3">
+        <strong>Oba!</strong> @TempData["AlertMessage"]
+    </div>
+}
+
 <div class="container mt-3">
     <div class="table-responsive">
         <table class="table table-striped table-hover">
@@ -63,7 +70,18 @@
                             @Html.DisplayFor(modelItem => item.Horas)
                         </td>
                         <td>
-                            <div class="row gx-2">
+
+                            <a asp-action="AlterarRegistro" asp-controller="RegistroHoras" asp-route-id="@item.Id"><img src="~/lib/imagens/alterar.png" alt="Alterar" width="30" height="30" /></a>
+                            <button type="button" class="remocao"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#examplemodal"
+                                    data-id="@item.Id"
+                                    data-dia="@item.Dia"
+                                    style="border: none; background-color:rgba(0, 0, 0, 0);">
+                                <img src="~/lib/imagens/trash.png" width="30" height="30" />
+
+                            </button>
+                            @* <div class="row gx-2">
                                 <div class="col">
                                     <a asp-action="AlterarRegistro" asp-route-id="@item.Id" class="btn btn-primary">
                                         Alterar
@@ -74,25 +92,93 @@
                                         Remover
                                     </a>
                                 </div>
-                            </div>
+                            </div> *@
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+
+        <div class="modal fade" id="examplemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmação</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    </div>
+                    <form asp-action="RemoverRegistro" asp-controller="RegistroHoras">
+                        <div class="modal-body">
+                            <h4 class="text-danger">
+                                Tem certeza que deseja remover o registro do dia:
+                            </h4>
+                            <h5>
+
+                                <div id="titulo"></div>
+                            </h5>
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" id="id" name="id" />
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                            <button type="submit" class="btn btn-primary">Sim, remover</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".remocao").click(function () {
+                var id = $(this).attr("data-id");
+                var registro = $(this).attr("data-dia")
+                console.log("ID do registro:", id);
+                $(".modal-footer #id").val(id);
+                $(".modal-body #titulo").html(registro);
+            });
+        });
+
+        var alertTimeout = 5000;
+        setTimeout(function () {
+            var alertElement = document.getElementById('temp-alert');
+            if (alertElement) {
+                alertElement.style.display = 'none';
+            }
+        }, alertTimeout);
+    </script>
+}
 
 <style>
+
+    #temp-alert {
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
     
     .btn {
         border: none;
     }
 
+    .btn-secondary {
+        border-radius: 10px;
+        border: none;
+        background-color: #8c9299;
+    }
+
+
     .btn-primary {
         background-color: #890078;
-        border-radius: 15px;
+        border-radius: 10px;
     }
 
         .btn-primary:hover {

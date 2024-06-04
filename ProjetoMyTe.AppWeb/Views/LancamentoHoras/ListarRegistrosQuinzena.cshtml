@@ -16,6 +16,12 @@
         </div>
     </div>
 </div>
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="temp-alert" class="alert alert-success mt-3">
+        <strong>Oba!</strong> @TempData["AlertMessage"]
+    </div>
+}
 
 <div class="container mt-5">
     <div class="table-responsive">
@@ -80,7 +86,7 @@
                                     data-dia="@item.Dia"
                                     style="border: none; background-color:rgba(0, 0, 0, 0);">
                                 <img src="~/lib/imagens/trash.png" width="30" height="30" />
-                               
+
                             </button>
                             @*
                         <a asp-action="RemoverRegistro" asp-controller="RegistroHoras" asp-route-id="@item.Id"><img src="~/lib/imagens/trash.png" alt="Deletar" width="30" height="30" /></a>
@@ -134,6 +140,14 @@
                 $(".modal-body #titulo").html(registro);
             });
         });
+
+        var alertTimeout = 5000;
+        setTimeout(function () {
+            var alertElement = document.getElementById('temp-alert');
+            if (alertElement) {
+                alertElement.style.display = 'none';
+            }
+        }, alertTimeout);
     </script>
 }
 
@@ -171,6 +185,17 @@
     .table th,
     .table td {
         font-size: 14px;
+    }
+
+    #temp-alert {
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
 </style>

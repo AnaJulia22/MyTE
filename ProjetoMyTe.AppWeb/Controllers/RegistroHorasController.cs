@@ -71,6 +71,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 registroHoras.DataRegistro = DateTime.Now;
                 
                 registroHorasService.Incluir(registroHoras);
+
+                TempData["AlertMessage"] = "Registro criado com sucesso!!!";
                 
                 return RedirectToAction("ListarRegistros");
             }
@@ -118,7 +120,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
                 registroHoras.DataRegistro = DateTime.Now;
                 registroHorasService.Alterar(registroHoras);
-                return RedirectToAction("ListarRegistrosQuinzena"); // Requisição get
+                TempData["AlertMessage"] = "Registro alterado com sucesso!!!";
+
+                return RedirectToAction("ListarRegistros"); // Requisição get
             }
             catch (Exception e)
             {
@@ -164,7 +168,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 }
 
                 registroHorasService.Remover(registroExistente!);
-                return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras");
+                TempData["AlertMessage"] = "Registro removido com sucesso!!!";
+
+                return RedirectToAction("ListarRegistros");
                   
             }
             catch (Exception e)

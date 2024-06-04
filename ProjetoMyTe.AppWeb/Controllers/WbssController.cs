@@ -19,6 +19,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
         {
             return View();
         }
+
         public IActionResult ListarWbss()
         {
             try
@@ -54,8 +55,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     return View();
                 }
                 wbssService.AdicionarWbs(wbs);
-                //return RedirectToAction("ListarWbss");
-                return RedirectToAction("Success", new { message = "WBS has been successfully registered." }); // mudei aqui
+                TempData["AlertMessage"] = "WBS adicionada com sucesso!!!";
+                return RedirectToAction("ListarWbss");
             }
             catch (Exception)
             {
@@ -98,6 +99,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     return View();
                 }
                 wbssService.Alterar(wbs);
+                TempData["AlertMessage"] = "WBS alterada com sucesso!!!";
+
                 return RedirectToAction("ListarWbss");
             }
             catch (Exception)
@@ -141,7 +144,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     Console.WriteLine("NAO ENCONTRADO");
                     return RedirectToAction("ListarWbss");
                 }
-                wbssService?.Remover(WbsExistente!);  
+                wbssService?.Remover(WbsExistente!);
+                TempData["AlertMessage"] = "WBS removida com sucesso!!!";
+
                 return RedirectToAction("ListarWbss");
             }
             catch (Exception)
