@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyTe.API.Models;
 using MyTe.API.Services;
@@ -15,9 +16,7 @@ namespace MyTe.API.Controllers
         {
             this.wbssService = wbssService;
         }
-
      
-
         [HttpGet]
         public IActionResult ListarWbsDTO()
         {
@@ -25,5 +24,6 @@ namespace MyTe.API.Controllers
         }
 
        
+
     }
 }

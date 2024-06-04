@@ -20,9 +20,9 @@ namespace MyTe.API.Controllers
 
        
         [HttpGet]
-        public IActionResult ListarColaboradoresDTO()
+        public IActionResult ListarColaboradores()
         {
-            return Ok(colaboradoresService.ListarColaboradoresDTO());
+            return Ok(colaboradoresService.ListarColaboradores());
         }
         
     }

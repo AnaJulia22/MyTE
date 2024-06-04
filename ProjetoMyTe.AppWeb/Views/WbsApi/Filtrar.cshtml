@@ -1,0 +1,14 @@
+﻿@model ProjetoMyTe.AppWeb.Models.FiltroViewModel
+
+@using (Html.BeginForm("Filtrar", "WbsApi", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(model => model.DataInicio)
+        @Html.EditorFor(model => model.DataInicio)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.DataFim)
+        @Html.EditorFor(model => model.DataFim)
+    </div>
+    <button type="submit">Filtrar</button>
+}
