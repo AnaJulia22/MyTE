@@ -143,6 +143,12 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 {
                     return RedirectToAction("Login", "Autenticacao");
                 }
+                var passwordVerificationResult = userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash!, model.SenhaNova!);
+                if (passwordVerificationResult == PasswordVerificationResult.Success)
+                {
+                    ModelState.AddModelError(string.Empty, "A nova senha não pode ser igual à antiga.");
+                    return View(model);
+                }
 
                 var result = await userManager.ChangePasswordAsync(user, model.SenhaAntiga!, model.SenhaNova!);
 

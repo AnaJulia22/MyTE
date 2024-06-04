@@ -75,7 +75,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
                 for (int x = 0; x < num_registro; x++)
                 {
-                    if (SomarHoras[x] != 8 && quinzena.DiasUteis.Contains(quinzena.GetDia(x)))
+                    if (SomarHoras[x] != 8 && quinzena.DiasUteis!.Contains(quinzena.GetDia(x)))
                     {
                         throw new Exception("A carga horária de 8/dia não foi cumprida. Favor, revise seus lançamentos");
                     }
