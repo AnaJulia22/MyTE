@@ -31,6 +31,7 @@ namespace ProjetoMyTe.AppWeb.Services
                         on r.WbsId equals w.Id
                         join c in Context.Colaboradores
                         on r.CpfId equals c.Id
+                        where r.CpfId == Utils.IdCpf
                         select new RegistroHorasDTO
                         {
                             Id = r.Id,

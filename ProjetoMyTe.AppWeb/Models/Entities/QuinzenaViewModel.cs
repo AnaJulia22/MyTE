@@ -6,10 +6,11 @@
         public DateTime FimDaQuinzena { get; set; }
         public List<DateTime>? DiasDoMes { get; set; }
         public List<DateTime>? FinaisDeSemana { get; set; }
+        public List<DateTime>? DiasUteis {  get; set; }
 
         public DateTime GetDia(int valor)
         {
-            var dia = DiasDoMes![valor-1];
+            var dia = DiasDoMes![valor];
             return dia;
         }
     }

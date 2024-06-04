@@ -19,11 +19,14 @@ namespace ProjetoMyTe.AppWeb.Services
                 InicioDaQuinzena = inicioDaQuinzena,
                 FimDaQuinzena = fimDaQuinzena,
                 DiasDoMes = ListarTodosOsDias(inicioDaQuinzena, fimDaQuinzena),
-                FinaisDeSemana = ListarOsFinaisDeSemana(inicioDaQuinzena, fimDaQuinzena)
+                FinaisDeSemana = ListarOsFinaisDeSemana(inicioDaQuinzena, fimDaQuinzena),
+                DiasUteis = ListarDiasUteis(inicioDaQuinzena, fimDaQuinzena)
+                
             };
             return quinzena;
         }
-       
+
+               
         private List<DateTime> ListarTodosOsDias(DateTime inicioDaQuinzena, DateTime fimDaQuinzena)
         {
             var listaDias = new List<DateTime>();
@@ -44,6 +47,19 @@ namespace ProjetoMyTe.AppWeb.Services
                 }
             }
             return listaDiasFinaisDeSemana;
+        }
+
+        private List<DateTime> ListarDiasUteis(DateTime inicioDaQuinzena, DateTime fimDaQuinzena)
+        {
+            var listaDiasUteis = new List<DateTime>();
+            for (var dia = inicioDaQuinzena; dia <= fimDaQuinzena; dia = dia.AddDays(1))
+            {
+                if (dia.DayOfWeek != DayOfWeek.Sunday && dia.DayOfWeek != DayOfWeek.Saturday)
+                {
+                    listaDiasUteis.Add(dia);
+                }
+            }
+            return listaDiasUteis;
         }
     }
 }
