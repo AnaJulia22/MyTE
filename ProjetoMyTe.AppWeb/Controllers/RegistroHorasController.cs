@@ -84,7 +84,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
                 TempData["AlertMessage"] = "Registro criado com sucesso!!!";
                 
-                return RedirectToAction("ListarRegistros");
+                return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras");
             }
             catch (Exception e)
             {
@@ -140,8 +140,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 
                 registroHorasService.Alterar(rh);
                 TempData["AlertMessage"] = "Registro alterado com sucesso!!!";
-                rh = null;
-                return RedirectToAction("ListarRegistrosQuinzena"); // Requisição get
+                rh = null!;
+                return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras");
             }
             catch (Exception e)
             {
@@ -188,8 +188,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 registroHorasService.Remover(registroExistente!);
                 TempData["AlertMessage"] = "Registro removido com sucesso!!!";
 
-                return RedirectToAction("ListarRegistros");
-                  
+                return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras");
             }
             catch (Exception e)
             {

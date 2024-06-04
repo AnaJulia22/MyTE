@@ -108,7 +108,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
 
                     return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
-                                                      ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras") : User.IsInRole("RH")
+                                                      ? RedirectToAction("LancarHorasDTO", "LancamentoHoras") : User.IsInRole("RH")
                                                       ? RedirectToAction("AdicionarColaborador", "Colaboradores")
                                                       : RedirectToAction("ShowDashboard", "Dashboard");
 
