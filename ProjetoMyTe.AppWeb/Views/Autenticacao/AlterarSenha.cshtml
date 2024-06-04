@@ -1,10 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-<head>
 
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-</head>
 @model ProjetoMyTe.AppWeb.Models.Entities.AlterarSenhaViewModel
 @{
     ViewData["Title"] = "Alterar Senha";
@@ -20,7 +17,7 @@
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="CpfId">CPF</label>
-                            <input asp-for="CpfId" class="form-control" />
+                            <input asp-for="CpfId" class="form-control"/>
                             <span asp-validation-for="CpfId" class="text-danger"></span>
                         </div>
                         <div class="form-group">

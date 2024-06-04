@@ -182,7 +182,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 var registroExistente = registroHorasService.Buscar(id);
                 if (registroExistente == null)
                 {
-                    Console.WriteLine("NAO ENCONTRADO");
                     return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras"); 
                 }
 

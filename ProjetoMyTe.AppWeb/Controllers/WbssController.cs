@@ -141,7 +141,6 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 var WbsExistente = wbssService.Buscar(id);
                 if (WbsExistente == null)
                 {
-                    Console.WriteLine("NAO ENCONTRADO");
                     return RedirectToAction("ListarWbss");
                 }
                 wbssService?.Remover(WbsExistente!);
