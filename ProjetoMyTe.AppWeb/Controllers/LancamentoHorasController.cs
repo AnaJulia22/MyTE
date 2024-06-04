@@ -15,7 +15,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
         private readonly RegistroHorasService? _registroHorasService;
         private readonly WbssService? _wbssService;
         private readonly QuinzenasService _quinzenasService;
-        
+
 
         public LancamentoHorasController(RegistroHorasService registroHorasService, WbssService wbssService, QuinzenasService quinzenasService)
         {
@@ -32,7 +32,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
         [HttpGet]
         public IActionResult LancarHorasDTO()
         {
-            
+
             ViewBag.ListaDeWbss = new SelectList(_wbssService!.Listar(), "Id", "Descricao");
             return View();
         }
@@ -40,7 +40,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
         [HttpPost]
         public IActionResult LancarHorasDTO(List<int> WbsId, List<int> Horas)
         {
-            
+
             //listando a WBS para o usuário
             ViewBag.ListaDeWbss = new SelectList(_wbssService!.Listar(), "Id", "Descricao");
 
@@ -53,7 +53,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 var listaHoras = Horas;
                 var listaWbs = WbsId;
 
-                List<int> SomarHoras = new List<int>(new int[num_registro]) ;
+                List<int> SomarHoras = new List<int>(new int[num_registro]);
 
                 List<List<int>> SublistasHoras = new List<List<int>>();
                 int TamSublista = num_registro;
@@ -67,8 +67,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 {
                     for (int j = 0; j < num_registro; j++)
                     {
-                      
-                            SomarHoras[j] += SublistasHoras[i][j];
+
+                        SomarHoras[j] += SublistasHoras[i][j];
                     }
                 }
 
@@ -107,8 +107,10 @@ namespace ProjetoMyTe.AppWeb.Controllers
                             rh = null;
                         }
 
-                     }
+                    }
                 }
+                TempData["AlertMessage"] = "Registro criado com sucesso!!!";
+                return RedirectToAction("ListarRegistrosQuinzena");
             }
             catch (Exception ex)
             {
@@ -116,9 +118,9 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 return View("_Erro", ex);
             }
 
-            return View();
+            //return View();
 
-            
+
         }
 
 
