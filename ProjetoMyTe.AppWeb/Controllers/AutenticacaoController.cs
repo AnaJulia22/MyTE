@@ -13,13 +13,15 @@ namespace ProjetoMyTe.AppWeb.Controllers
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly ColaboradoresService colaboradoresService;
+        private readonly QuinzenasService quinzenaService;
 
-        public AutenticacaoController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ColaboradoresService colaboradoresService)
+        public AutenticacaoController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ColaboradoresService colaboradoresService, QuinzenasService quinzenaService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
             this.colaboradoresService = colaboradoresService;
+            this.quinzenaService = quinzenaService; 
         }
 
         public IActionResult Index()
@@ -56,6 +58,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
                     if (result.Succeeded)
                     {
+                        quinzenaService.CriarQuinzena();
                         if (!string.IsNullOrEmpty(model.Perfil))
                         {
                             var appRole = await roleManager.FindByNameAsync(model.Perfil);

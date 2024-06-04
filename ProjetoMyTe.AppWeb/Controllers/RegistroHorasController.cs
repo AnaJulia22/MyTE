@@ -33,7 +33,12 @@ namespace ProjetoMyTe.AppWeb.Controllers
         {
             try
             {
-                var lista = registroHorasService.Listar();
+                var quinzena = quinzenasService.CriarQuinzena();
+                var inicioQuinzena = quinzena.InicioDaQuinzena;
+                var fimQuinzena = quinzena.FimDaQuinzena;
+
+                var lista = registroHorasService!.Listar(Utils.IdCpf!, inicioQuinzena, fimQuinzena);
+
                 return View(lista);
             }
             catch (Exception ex)
@@ -69,6 +74,11 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 }
                 registroHoras.CpfId = Utils.IdCpf;
                 registroHoras.DataRegistro = DateTime.Now;
+
+                if (registroHoras.Horas != 8)
+                {
+                    throw new Exception("A carga horária de 8/dia não foi cumprida. Favor, revise seu lançamento.");
+                }
                 
                 registroHorasService.Incluir(registroHoras);
                 
@@ -115,10 +125,20 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 {
                     return View();
                 }
-
-                registroHoras.DataRegistro = DateTime.Now;
-                registroHorasService.Alterar(registroHoras);
-                return RedirectToAction("ListarRegistros"); // Requisição get
+                RegistroHoras rh = new RegistroHoras();
+                rh.DataRegistro = DateTime.Now;
+                rh.WbsId = registroHoras.WbsId;
+                rh.CpfId = Utils.IdCpf;
+                rh.Dia = registroHoras.Dia;
+                rh.Horas = registroHoras.Horas;
+                if(rh.Horas != 8)
+                {
+                    throw new Exception("A carga horária de 8/dia não foi cumprida. Favor, revise seu lançamento");
+                }
+                
+                registroHorasService.Alterar(rh);
+                rh = null;
+                return RedirectToAction("ListarRegistrosQuinzena"); // Requisição get
             }
             catch (Exception e)
             {

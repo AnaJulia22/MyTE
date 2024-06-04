@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProjetoMyTe.AppWeb.Models.Contexts;
+using ProjetoMyTe.AppWeb.Services; 
+
 
 namespace ProjetoMyTe.AppWeb.Models.Common
 {
@@ -22,6 +25,13 @@ namespace ProjetoMyTe.AppWeb.Models.Common
 
         }
         public static string? IdCpf = null;
-        public static int totalHorasWbs = 0;
+        public static DateTime? Atual;
+        public static DateTime? QuinzenaAnterior;
+        public static DateTime? PróximaQuinzena;
+
+
+
+
     }
+
 }
