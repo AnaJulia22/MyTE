@@ -23,6 +23,7 @@ namespace ProjetoMyTe.AppWeb.Services
             };
             return quinzena;
         }
+       
         private List<DateTime> ListarTodosOsDias(DateTime inicioDaQuinzena, DateTime fimDaQuinzena)
         {
             var listaDias = new List<DateTime>();

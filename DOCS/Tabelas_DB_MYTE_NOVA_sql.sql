@@ -10,7 +10,6 @@ CREATE TABLE TB_WBS(
 	descricao VARCHAR(100) not null,
 	tipo SMALLINT not null, --1 chargeability 2 - non-chargeability
 	PRIMARY KEY(id),
-	CHECK(LEN(codigo) > 4 AND LEN(codigo) <10),
 	CHECK(tipo=1 OR tipo=2)
 )
 
@@ -23,7 +22,8 @@ CREATE TABLE TB_CARGOS(
 CREATE TABLE TB_COLABORADORES(
 	cpf VARCHAR(11),
 	id_cargo INT, 
-	administrador BIT not null,
+	nome VARCHAR(100),
+	perfil VARCHAR(100),
 	PRIMARY KEY(cpf),
 	FOREIGN KEY(id_cargo) REFERENCES TB_CARGOS(id),
 	CHECK(LEN(cpf)=11)

@@ -9,7 +9,7 @@ namespace ProjetoMyTe.AppWeb.DAL
     public class GenericDAO<T> where T : class
     {
         private MyTeContext Context { get; set; }
-
+        
         // criando o construtor (obrigando o passagem do parâmetro)
         public GenericDAO(MyTeContext context)
         {
@@ -19,10 +19,21 @@ namespace ProjetoMyTe.AppWeb.DAL
         // adicionando entidades qualquer (T),  no sentido de registro
         public void Adicionar(T item)
         {
-            Context.Entry<T>(item).State = EntityState.Added;
-            Context.SaveChanges();
-        }
+           
+                Context.Entry<T>(item).State = EntityState.Added;
+            try
+            {
+                Context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
 
+                Console.WriteLine(ex);
+            }
+                
+            
+        }
+       
         // listando as entidade qualquer que seja (T), ou seja: lista colaboradores, cargos, wbs, registrosHoras...etc
 
         public IEnumerable<T> Listar() 
@@ -33,17 +44,20 @@ namespace ProjetoMyTe.AppWeb.DAL
         // alterando 
         public void Alterar(T item)
         {
-            Context.Entry<T>(item).State = EntityState.Modified;
+            
+                Context.Entry<T>(item).State = EntityState.Modified;
             Context.SaveChanges();
+            
         }
         // definido com o tipo dynamic, por conta do id cpf que é uma string
         public T? Buscar(dynamic id)
         {
             return Context.Set<T>().Find(id);
         }
-              
+        
+
         // remover do uma entidade pelo id
-       
+
         public void Remover(T item)
         {
             Context.Entry(item).State = EntityState.Deleted;

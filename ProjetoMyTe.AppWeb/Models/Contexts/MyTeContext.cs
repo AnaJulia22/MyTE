@@ -58,6 +58,11 @@ namespace ProjetoMyTe.AppWeb.Models.Contexts
                 .Property(p => p.Tipo)
                 .HasColumnName("tipo");
 
+
+            modelBuilder.Entity<RegistroHoras>()
+                .Property(p => p.Id).ValueGeneratedOnAdd()
+                .HasColumnName("id");
+
             modelBuilder.Entity<RegistroHoras>()
                 .Property(p => p.DataRegistro)
                 .HasColumnName("data_registro");
