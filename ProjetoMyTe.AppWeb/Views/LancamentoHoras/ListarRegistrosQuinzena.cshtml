@@ -7,12 +7,12 @@
 <div class="mt-5">
     <div class="row">
         <div class="col">
-            <a asp-action="IncluirRegistro" asp-controller="RegistroHoras" class="btn btn-primary" style="background-color: #890078;">Lançar Registros Diários +</a>
+            <a asp-action="IncluirRegistro" asp-controller="RegistroHoras" class="btn btn-primary" >Lançar Registros Diários +</a>
         </div>
     </div>
     <div class="row mt-2">
         <div class="col">
-            <a asp-action="LancarHorasDTO" asp-controller="LancamentoHoras" class="btn btn-primary" style="background-color: #890078;">Lançar Registros Quinzenais +</a>
+            <a asp-action="LancarHorasDTO" asp-controller="LancamentoHoras" class="btn btn-primary" >Lançar Registros Quinzenais +</a>
         </div>
     </div>
 </div>
@@ -129,6 +129,12 @@
     </div>
 </div>
 
+<button onclick="topFuncao()" id="btnTop" title="Ir para cima">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z" />
+    </svg>
+</button>
+
 @section scripts {
     <script>
         $(document).ready(function () {
@@ -148,10 +154,44 @@
                 alertElement.style.display = 'none';
             }
         }, alertTimeout);
+
+        let mybutton = document.getElementById("btnTop");
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        function topFuncao() {
+            document.documentElement.scrollTop = 0; 
+        }
     </script>
 }
 
 <style>
+
+    #btnTop {
+        display: none;
+        position: fixed;
+        bottom: 40px;
+        right: 50px;
+        z-index: 99;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: #890078;
+        transition: background-color 0.3s ease;
+    }
+
+        #btnTop:hover {
+            color: #ff5800;
+        }
 
     .btn {
         border: none;
@@ -170,7 +210,7 @@
     }
 
         .btn-primary:hover {
-            background-color: #6b056b;
+            background-color: #ff5800;
         }
 
     .table th,
