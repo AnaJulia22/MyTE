@@ -78,15 +78,15 @@
 
                             <a asp-action="AlterarWbs" asp-route-id="@item.Id"><img src="~/lib/imagens/alterar.png" alt="Alterar" width="30" height="30" /></a>
                             @* <button type="button" class="edicao"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="@("#examplemodal1-" + item.Id)"
-                                    data-id="@item.Id"
-                                    data-codigo="@item.Codigo"
-                                    style="border: none; background-color:rgba(0, 0, 0, 0);">
-                                <img src="~/lib/imagens/alterar.png" width="30" height="30" />
+                        data-bs-toggle="modal"
+                        data-bs-target="@("#examplemodal1-" + item.Id)"
+                        data-id="@item.Id"
+                        data-codigo="@item.Codigo"
+                        style="border: none; background-color:rgba(0, 0, 0, 0);">
+                        <img src="~/lib/imagens/alterar.png" width="30" height="30" />
 
-                            </button>
-                            @await Html.PartialAsync("AlterarWbs", item) *@
+                        </button>
+                        @await Html.PartialAsync("AlterarWbs", item) *@
 
                             @* <a asp-action="RemoverWbs" asp-route-id="@item.Id"><img src="~/lib/imagens/trash.png" alt="Deletar" width="30" height="30" /></a> *@
                             <button type="button" class="remocao"
@@ -171,6 +171,11 @@
     </div>
 </div>
 
+<button onclick="topFuncao()" id="btnTop" title="Ir para cima">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z" />
+    </svg>
+</button>
 
 @section scripts {
     <script>
@@ -201,10 +206,46 @@
                 alertElement.style.display = 'none';
             }
         }, alertTimeout);
+
+
+        let mybutton = document.getElementById("btnTop");
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        function topFuncao() {
+            document.documentElement.scrollTop = 0;
+        }
+
     </script>
 }
 
 <style>
+
+    #btnTop {
+        display: none;
+        position: fixed;
+        bottom: 40px;
+        right: 50px;
+        z-index: 99;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: #890078;
+        transition: background-color 0.3s ease;
+    }
+
+        #btnTop:hover {
+            color: #ff5800;
+        }
 
     #temp-alert {
         position: fixed;
@@ -233,7 +274,7 @@
     }
 
         .btn-primary:hover {
-            background-color: #6b056b;
+            background-color: #ff5800;
         }
 
     .table th,
