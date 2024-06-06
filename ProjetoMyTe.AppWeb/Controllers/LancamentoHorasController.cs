@@ -113,7 +113,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     }
                 }
                 TempData["AlertMessage"] = "Registro criado com sucesso!!!";
-                return RedirectToAction("ListarRegistrosQuinzena");
+                return RedirectToAction("LancarHorasDTO");
             }
             catch (Exception ex)
             {
@@ -165,7 +165,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
             if (referencia.AddDays(-1) < minimumDate)
             {
-                TempData["AlertMessage"] = "A data não pode ser anterior a 01/01/2024.";
+                TempData["AlertMessageError"] = "A data não pode ser anterior a 01/01/2024.";
                 return RedirectToAction("ListarRegistrosQuinzena", new { referencia = referencia });
             }
             var quinzenaAnterior = _quinzenasService.GetQuinzenaAnterior(referencia);
@@ -185,7 +185,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
             if (referencia.AddDays(-1) < minimumDate)
             {
-                TempData["AlertMessage"] = "A data não pode ser anterior a 01/01/2024.";
+                TempData["AlertMessageError"] = "A data não pode ser anterior a 01/01/2024.";
                 return RedirectToAction("LancarHorasDTO", new { referencia = referencia });
             }
             var quinzenaAnterior = _quinzenasService.GetQuinzenaAnterior(referencia);
