@@ -29,23 +29,26 @@ namespace ProjetoMyTe.AppWeb.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult LancarHorasDTO()
-        {
 
+        [HttpGet]
+        public IActionResult LancarHorasDTO(DateTime? referencia)
+        {
+            var quinzena = _quinzenasService.CriarQuinzena(referencia);
             ViewBag.ListaDeWbss = new SelectList(_wbssService!.Listar(), "Id", "Descricao");
+            ViewBag.Quinzena = quinzena;
+            ViewBag.Referencia = quinzena.InicioDaQuinzena.ToString("yyyy-MM-dd");
             return View();
         }
 
         [HttpPost]
-        public IActionResult LancarHorasDTO(List<int> WbsId, List<int> Horas)
+        public IActionResult LancarHorasDTO(List<int> WbsId, List<int> Horas, DateTime? referencia)
         {
 
             //listando a WBS para o usuário
             ViewBag.ListaDeWbss = new SelectList(_wbssService!.Listar(), "Id", "Descricao");
 
             //Criando a quinzena para sabermos quantos dias teremos na quinzena.
-            var quinzena = _quinzenasService.CriarQuinzena();
+            var quinzena = _quinzenasService.CriarQuinzena(referencia);
             var num_registro = quinzena.DiasDoMes!.Count;
 
             try
@@ -123,28 +126,70 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
         }
 
-
-
         [HttpGet]
-        public IActionResult ListarRegistrosQuinzena()
+        public IActionResult ListarRegistrosQuinzena(DateTime? referencia)
         {
             try
             {
-                var quinzena = _quinzenasService.CriarQuinzena();
+                var quinzena = _quinzenasService.CriarQuinzena(referencia); // Quinzena atual
                 var cpf = Utils.IdCpf;
                 var inicioQuinzena = quinzena.InicioDaQuinzena;
                 var fimQuinzena = quinzena.FimDaQuinzena;
 
-                var lista = _registroHorasService!.Listar(cpf!, inicioQuinzena, fimQuinzena);
+
+                // Listar registros para a quinzena calculada
+                var lista = _registroHorasService?.Listar(cpf!, inicioQuinzena, fimQuinzena);
+
+                ViewBag.Quinzena = quinzena;
+                ViewBag.Referencia = quinzena.InicioDaQuinzena.ToString("yyyy-MM-dd");
+
 
                 return View(lista);
             }
             catch (Exception ex)
             {
-
                 return View("_Erro", ex);
             }
         }
 
+        public IActionResult ProximaQuinzenaLista(DateTime referencia)
+        {
+            var proximaQuinzena = _quinzenasService.GetProximaQuinzena(referencia);
+            return RedirectToAction("ListarRegistrosQuinzena", new { referencia = proximaQuinzena });
+        }
+
+        public IActionResult QuinzenaAnteriorLista(DateTime referencia)
+        {
+
+            DateTime minimumDate = new DateTime(2024, 1, 1);
+
+            if (referencia.AddDays(-1) < minimumDate)
+            {
+                TempData["AlertMessage"] = "A data não pode ser anterior a 01/01/2024.";
+                return RedirectToAction("ListarRegistrosQuinzena", new { referencia = referencia });
+            }
+            var quinzenaAnterior = _quinzenasService.GetQuinzenaAnterior(referencia);
+            return RedirectToAction("ListarRegistrosQuinzena", new { referencia = quinzenaAnterior });
+        }
+
+
+        public IActionResult ProximaQuinzena(DateTime referencia)
+        {
+            var proximaQuinzena = _quinzenasService.GetProximaQuinzena(referencia);
+            return RedirectToAction("LancarHorasDTO", new { referencia = proximaQuinzena });
+        }
+
+        public IActionResult QuinzenaAnterior(DateTime referencia)
+        {
+            DateTime minimumDate = new DateTime(2024, 1, 1);
+
+            if (referencia.AddDays(-1) < minimumDate)
+            {
+                TempData["AlertMessage"] = "A data não pode ser anterior a 01/01/2024.";
+                return RedirectToAction("LancarHorasDTO", new { referencia = referencia });
+            }
+            var quinzenaAnterior = _quinzenasService.GetQuinzenaAnterior(referencia);
+            return RedirectToAction("LancarHorasDTO", new { referencia = quinzenaAnterior });
+        }
     }
 }

@@ -5,6 +5,13 @@
 @{
     ViewData["Title"] = "LancarHorasDTO";
 }
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="temp-alert" class="alert alert-warning mt-3">
+        <strong>Poxa :(</strong> @TempData["AlertMessage"]
+    </div>
+}
 <div class="row mt-2">
     <div class="col">
         <a asp-action="ListarRegistrosQuinzena" asp-controller="LancamentoHoras" class="btn btn-primary" style="color: #ff5800; background-color: rgb(0, 0, 0, 0)">
@@ -14,15 +21,32 @@
         </a>
     </div>
 </div>
-<h1 class="mt-4 text-center" style="color:#6b056b;">Lançamento de Horas
+<h1 class="mt-4 text-center" style="color:#6b056b;">
+    Lançamento de Horas
 
     <img src="~/lib/imagens/calendario.png" alt="Alterar" width="50" height="50" />
 </h1>
 @{
-    var quinzena = quinzenaService.CriarQuinzena();
+    var referencia = ViewBag.Referencia;
+    DateTime dateTime = DateTime.Parse(referencia);
+    var quinzena = quinzenaService.CriarQuinzena(dateTime);
+
     var qtdeDias = quinzena.DiasDoMes!.Count;
 }
 <div class="container mx-auto">
+    <div class="row">
+        <div class="col text-start">
+            <a asp-action="QuinzenaAnterior" asp-route-referencia="@ViewBag.Referencia" class="btn btn-secondary">
+                Anterior
+            </a>
+        </div>
+        <div class="col text-end">
+            <a asp-action="ProximaQuinzena" asp-route-referencia="@ViewBag.Referencia" class="btn btn-secondary">
+                Próxima
+            </a>
+        </div>
+    </div>
+    <form id="formAdicionarHoras" asp-action="LancarHorasDTO" asp-route-referencia="@ViewBag.Referencia" class="mt-3">
     <div class="mt-5">
         <div class="row">
             <div class="col text-end">
@@ -30,7 +54,6 @@
             </div>
         </div>
     </div>
-    <form id="formAdicionarHoras" asp-action="LancarHorasDTO" class="mt-3">
         <div id="EspacoLancamento" class="d-flex justify-content-center">
             <table class="table table-bordered w-auto">
                 <thead>
@@ -104,25 +127,33 @@
         }
 
         function topFuncao() {
-            document.documentElement.scrollTop = 0; 
+            document.documentElement.scrollTop = 0;
         }
+
+        var alertTimeout = 5000;
+        setTimeout(function () {
+            var alertElement = document.getElementById('temp-alert');
+            if (alertElement) {
+                alertElement.style.display = 'none';
+            }
+        }, alertTimeout);
     </script>
 }
 
 <style>
 
     #btnTop {
-        display: none; 
-        position: fixed; 
-        bottom: 40px; 
-        right: 50px; 
-        z-index: 99; 
-        background-color: rgba(0, 0, 0, 0); 
-        border: none; 
-        outline: none; 
-        cursor: pointer; 
+        display: none;
+        position: fixed;
+        bottom: 40px;
+        right: 50px;
+        z-index: 99;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        outline: none;
+        cursor: pointer;
         color: #890078;
-        transition: background-color 0.3s ease; 
+        transition: background-color 0.3s ease;
     }
 
         #btnTop:hover {
@@ -167,7 +198,7 @@
 
     thead {
         background-color: rgba(255, 88, 0, 0.5);
-        color:white;
+        color: white;
     }
 
     tr:nth-child(even) {

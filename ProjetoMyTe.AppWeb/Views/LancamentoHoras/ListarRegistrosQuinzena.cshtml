@@ -7,23 +7,32 @@
 <div class="mt-5">
     <div class="row">
         <div class="col">
-            <a asp-action="IncluirRegistro" asp-controller="RegistroHoras" class="btn btn-primary" >Lançar Registros Diários +</a>
+            <a asp-action="IncluirRegistro" asp-controller="RegistroHoras" class="btn btn-primary">Lançar Registros Diários +</a>
         </div>
     </div>
     <div class="row mt-2">
         <div class="col">
-            <a asp-action="LancarHorasDTO" asp-controller="LancamentoHoras" class="btn btn-primary" >Lançar Registros Quinzenais +</a>
+            <a asp-action="LancarHorasDTO" asp-controller="LancamentoHoras" class="btn btn-primary">Lançar Registros Quinzenais +</a>
         </div>
     </div>
 </div>
 @if (TempData["AlertMessage"] != null)
 {
     <div id="temp-alert" class="alert alert-success mt-3">
-        <strong>Oba!</strong> @TempData["AlertMessage"]
+        <strong>Oba! :)</strong> @TempData["AlertMessage"]
     </div>
 }
 
 <div class="container mt-5">
+    <div class="mt-5">
+        <div class="row">
+            <div class="col">
+                <!-- Controles de navegação -->
+                <a asp-action="QuinzenaAnteriorLista" asp-controller="LancamentoHoras" asp-route-referencia="@ViewBag.Referencia" class="btn btn-primary">Quinzena Anterior</a>
+                <a asp-action="ProximaQuinzenaLista" asp-controller="LancamentoHoras" asp-route-referencia="@ViewBag.Referencia" class="btn btn-primary">Próxima Quinzena</a>
+            </div>
+        </div>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
@@ -168,7 +177,7 @@
         }
 
         function topFuncao() {
-            document.documentElement.scrollTop = 0; 
+            document.documentElement.scrollTop = 0;
         }
     </script>
 }

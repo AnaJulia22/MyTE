@@ -4,23 +4,28 @@
     ViewData["Title"] = "Registrar";
     Layout = "_LoginLayout";
 }
-<div class="container">
+
+
+
+<div class="container justify-content-center align-items-center" style="background: linear-gradient(to right, rgba(137, 0, 120, 0.2) 40%, rgba(255, 88, 0, 0.2));
+  box-shadow: 0px 0px 20px rgba(70, 69, 69, 0.47); position:relative; bottom:50px; top:50px; height:85vh; width:100vh; border-radius: 10px;">
     <div class="row vh-100 justify-content-center align-items-center">
-        <div class="col-md-4">
-            <form asp-action="Registrar" class="logout-form">
+        <div class="col-md-7  " style="height: 100%;">
+            <h1 class="text-center mb-4 mt-4" style="color: #ffffff;">Bem-Vindo ao MyTE!</h1>
+            <form asp-action="Registrar" class="logout-form mt-3">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Cpf" class="control-label"></label>
+                    <label asp-for="Cpf" class="control-label text-white"></label>
                     <input asp-for="Cpf" class="form-control" />
                     <span asp-validation-for="Cpf" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Senha" class="control-label"></label>
+                    <label asp-for="Senha" class="control-label text-white"></label>
                     <input asp-for="Senha" class="form-control" />
                     <span asp-validation-for="Senha" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ConfirmaSenha" class="control-label"></label>
+                    <label asp-for="ConfirmaSenha" class="control-label text-white"></label>
                     <input asp-for="ConfirmaSenha" class="form-control" />
                     <span asp-validation-for="ConfirmaSenha" class="text-danger"></span>
                 </div>
@@ -52,10 +57,11 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
+        overflow-y: hidden;
     }
 
     .logout-form {
-        background-color: rgba(255, 255, 255, 0.4);
+        background-color: #aa3c8c;
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0px 0px 20px rgba(70, 69, 69, 0.47);
