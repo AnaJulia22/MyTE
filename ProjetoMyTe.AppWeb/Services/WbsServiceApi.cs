@@ -19,7 +19,7 @@ namespace ProjetoMyTe.AppWeb.Services
 
             this.wbssService = wbssService;
 
-            httpClient.BaseAddress = new Uri("http://localhost:5147/");
+            httpClient.BaseAddress = new Uri("https://myte-decola-api.azurewebsites.net/");
             httpClient.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
         }
