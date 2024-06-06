@@ -6,10 +6,17 @@
     ViewData["Title"] = "LancarHorasDTO";
 }
 
+@if (TempData["AlertMessageError"] != null)
+{
+    <div id="temp-alert-error" class="alert alert-warning mt-3">
+        <strong>Poxa :(</strong> @TempData["AlertMessageError"]
+    </div>
+}
+
 @if (TempData["AlertMessage"] != null)
 {
-    <div id="temp-alert" class="alert alert-warning mt-3">
-        <strong>Poxa :(</strong> @TempData["AlertMessage"]
+    <div id="temp-alert-success" class="alert alert-success mt-3">
+        <strong>Oba! :)</strong> @TempData["AlertMessage"]
     </div>
 }
 <div class="row mt-2">
@@ -114,6 +121,7 @@
 
 @section scripts {
     <script>
+
         let mybutton = document.getElementById("btnTop");
 
         window.onscroll = function () { scrollFunction() };
@@ -132,9 +140,14 @@
 
         var alertTimeout = 5000;
         setTimeout(function () {
-            var alertElement = document.getElementById('temp-alert');
-            if (alertElement) {
-                alertElement.style.display = 'none';
+            var alertElementSuccess = document.getElementById('temp-alert-success');
+            if (alertElementSuccess) {
+                alertElementSuccess.style.display = 'none';
+            }
+            console.log(alertElementSuccess);
+            var alertElementError = document.getElementById('temp-alert-error');
+            if (alertElementError) {
+                alertElementError.style.display = 'none';
             }
         }, alertTimeout);
     </script>
