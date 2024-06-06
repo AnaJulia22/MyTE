@@ -19,6 +19,7 @@ namespace ProjetoMyTe.AppWeb.Controllers
         {
             return View();
         }
+
         public IActionResult ListarWbss()
         {
             try
@@ -54,8 +55,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     return View();
                 }
                 wbssService.AdicionarWbs(wbs);
-                //return RedirectToAction("ListarWbss");
-                return RedirectToAction("Success", new { message = "WBS has been successfully registered." }); // mudei aqui
+                TempData["AlertMessage"] = "WBS adicionada com sucesso!!!";
+                return RedirectToAction("ListarWbss");
             }
             catch (Exception)
             {
@@ -98,6 +99,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                     return View();
                 }
                 wbssService.Alterar(wbs);
+                TempData["AlertMessage"] = "WBS alterada com sucesso!!!";
+
                 return RedirectToAction("ListarWbss");
             }
             catch (Exception)
@@ -107,35 +110,42 @@ namespace ProjetoMyTe.AppWeb.Controllers
             }
         }
 
-        [HttpGet]
+        //[HttpGet]
+        //public IActionResult RemoverWbs(int id)
+        //{
+        //    try
+        //    {
+        //        if (id <= 0)
+        //        {
+        //            throw new ArgumentException($"Valor de id ({id}) eh invalido!");
+        //        }
+        //        Wbs? wbs = wbssService.Buscar(id);
+        //        if (wbs == null)
+        //        {
+        //            throw new ArgumentException($"A wbs de id ({id}) não foi encontrado!");
+        //        }
+        //        return View(wbs);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
+        [HttpPost]
         public IActionResult RemoverWbs(int id)
         {
             try
             {
-                if (id <= 0)
+                var WbsExistente = wbssService.Buscar(id);
+                if (WbsExistente == null)
                 {
-                    throw new ArgumentException($"Valor de id ({id}) eh invalido!");
+                    return RedirectToAction("ListarWbss");
                 }
-                Wbs? wbs = wbssService.Buscar(id);
-                if (wbs == null)
-                {
-                    throw new ArgumentException($"A wbs de id ({id}) não foi encontrado!");
-                }
-                return View(wbs);
-            }
-            catch (Exception)
-            {
+                wbssService?.Remover(WbsExistente!);
+                TempData["AlertMessage"] = "WBS removida com sucesso!!!";
 
-                throw;
-            }
-        }
-
-        [HttpPost]
-        public IActionResult RemoverWbs(Wbs wbs)
-        {
-            try
-            {
-                wbssService?.Remover(wbs);  
                 return RedirectToAction("ListarWbss");
             }
             catch (Exception)

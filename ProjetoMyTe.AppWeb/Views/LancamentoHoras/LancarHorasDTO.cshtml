@@ -1,157 +1,207 @@
 ﻿@model ProjetoMyTe.AppWeb.Models.DTO.LancamentoHorasDTO
 @inject ProjetoMyTe.AppWeb.Services.QuinzenasService quinzenaService
+@using ProjetoMyTe.AppWeb.Models.Common;
 
 @{
     ViewData["Title"] = "LancarHorasDTO";
 }
 
-<h1 class="mt-5">Lançar Horas</h1>
-@{
-    var quinzena = quinzenaService.CriarQuinzena();
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="temp-alert" class="alert alert-warning mt-3">
+        <strong>Poxa :(</strong> @TempData["AlertMessage"]
+    </div>
 }
-<div class="container mt-3">
-    <form asp-action="LancarHorasDTO" class="mt-5">
-        <tr>
-            <div class="form-group mb-3">
-                <select asp-for="WbsId" asp-items="(SelectList)ViewBag.ListaDeWbss" class="form-select">
-                    <option value="0">SELECIONE A WBS</option>
-                </select>
-                <span asp-validation-for="WbsId" class="text-danger"></span>
-            </div>
-        </tr>
-        <tr>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-                <table class="table table-bordered">
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(1).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia1" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia1" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(2).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia2" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia2" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(3).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia3" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia3" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(4).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia4" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia4" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(5).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia5" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia5" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(6).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia6" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia6" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(7).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia7" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia7" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(8).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia8" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia8" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(9).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia9" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia9" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(10).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia10" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia10" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(11).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia11" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia11" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(12).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia12" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia12" class="text-danger"></span>
-                    </th>
-                    <th class="form-group">
-                        <label class="control-label">@quinzena.GetDia(13).ToString("d/M/yy ddd")</label>
-                        <input type="number" asp-for="HorasDia13" class="form-control" min="0" max="8" />
-                        <span asp-validation-for="HorasDia13" class="text-danger"></span>
-                    </th>
-                    @if (quinzena.DiasDoMes!.Count > 13)
-                    {
-                        <th class="form-group">
-                            <label class="control-label">@quinzena.GetDia(14).ToString("d/M/yy ddd")</label>
-                            <input type="number" asp-for="HorasDia14" class="form-control" min="0" max="8" />
-                            <span asp-validation-for="HorasDia14" class="text-danger"></span>
-                        </th>
-                    }
-                    @if (quinzena.DiasDoMes!.Count > 14)
-                    {
-                        <th class="form-group">
-                            <label class="control-label">@quinzena.GetDia(15).ToString("d/M/yy ddd")</label>
-                            <input type="number" asp-for="HorasDia15" class="form-control" min="0" max="8" />
-                            <span asp-validation-for="HorasDia15" class="text-danger"></span>
-                        </th>
-                    }
-                    @if (quinzena.DiasDoMes!.Count > 15)
-                    {
-                        <th class="form-group">
-                            <label class="control-label">@quinzena.GetDia(16).ToString("d/M/yy ddd")</label>
+<div class="row mt-2">
+    <div class="col">
+        <a asp-action="ListarRegistrosQuinzena" asp-controller="LancamentoHoras" class="btn btn-primary" style="color: #ff5800; background-color: rgb(0, 0, 0, 0)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5" />
+            </svg> Ver Último Lançamento
+        </a>
+    </div>
+</div>
+<h1 class="mt-4 text-center" style="color:#6b056b;">
+    Lançamento de Horas
 
-                            <input type="number" asp-for="HorasDia16" class="form-control" min="0" max="8" />
-                            <span asp-validation-for="HorasDia16" class="text-danger"></span>
-                        </th>
-                    }
-                </table>
-        </tr>
+    <img src="~/lib/imagens/calendario.png" alt="Alterar" width="50" height="50" />
+</h1>
+@{
+    var referencia = ViewBag.Referencia;
+    DateTime dateTime = DateTime.Parse(referencia);
+    var quinzena = quinzenaService.CriarQuinzena(dateTime);
 
-        <div class="mt-4">
-            <div class="row">
-                <div class="col">
-                    <input type="submit" value="Lançar horas" class="btn btn-primary" style="background-color: #890078; " />
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col">
-                    <a asp-action="ListarRegistrosQuinzena" asp-controller="LancamentoHoras" class="btn btn-primary" style="background-color: #890078; ">Listar Último Lançamento</a>
-                </div>
+    var qtdeDias = quinzena.DiasDoMes!.Count;
+}
+<div class="container mx-auto">
+    <div class="row">
+        <div class="col text-start">
+            <a asp-action="QuinzenaAnterior" asp-route-referencia="@ViewBag.Referencia" class="btn btn-secondary">
+                Anterior
+            </a>
+        </div>
+        <div class="col text-end">
+            <a asp-action="ProximaQuinzena" asp-route-referencia="@ViewBag.Referencia" class="btn btn-secondary">
+                Próxima
+            </a>
+        </div>
+    </div>
+    <form id="formAdicionarHoras" asp-action="LancarHorasDTO" asp-route-referencia="@ViewBag.Referencia" class="mt-3">
+    <div class="mt-5">
+        <div class="row">
+            <div class="col text-end">
+                <input type="submit" value="Lançar horas" class="btn btn-primary" id="lancamento" />
             </div>
         </div>
-        @*  <span class="mb-3">
-        <a asp-action="#" class="btn btn-primary w-100" style="background-color: #890078;">Adicionar Horas em outra WBS</a>
-        </span>
-        <span class="mb-3">
-        <a asp-action="#" class="btn btn-primary w-100" style="background-color: #890078;">Cancelar</a>
-        </span> *@
+    </div>
+        <div id="EspacoLancamento" class="d-flex justify-content-center">
+            <table class="table table-bordered w-auto">
+                <thead>
+                    <tr>
+                        <th style="width: 150px; ">Selecione a WBS</th>
+                        @for (var j = 0; j < qtdeDias; j++)
+                        {
+                            <th style="width: 80px;">
+                                <label class="control-label">@quinzena.GetDia(j).ToString("d/M/yy ddd")</label>
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (var i = 0; i < 8; i++)
+                    {
+                        <tr>
+                            <td style="background-color:  rgba(255, 88, 0, 0.5);">
+
+                                <div class="form-group mb-3">
+                                    <select asp-for="WbsId![i]" asp-items="(SelectList)ViewBag.ListaDeWbss" class="form-select">
+                                        <option value="0">WBS</option>
+                                    </select>
+                                    <span asp-validation-for="WbsId" class="text-danger"></span>
+                                </div>
+                            </td>
+                            @for (var j = 0; j < qtdeDias; j++)
+                            {
+                                <th>
+
+                                    @if (quinzena.FinaisDeSemana!.Contains(quinzena.GetDia(j)))
+                                    {
+                                        <input asp-for="Horas" type="number" class="form-control" min="0" max="8" disabled />
+                                        <input asp-for="Horas" type="hidden" value="0" class="form-control" />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="Horas" type="number" class="form-control" value="0" min="0" max="8" />
+                                    }
+                                    <span asp-validation-for="Horas" class="text-danger"></span>
+
+                                </th>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </form>
 </div>
+<button onclick="topFuncao()" id="btnTop" title="Ir para cima">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z" />
+    </svg>
+</button>
 
+
+@section scripts {
+    <script>
+        let mybutton = document.getElementById("btnTop");
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        function topFuncao() {
+            document.documentElement.scrollTop = 0;
+        }
+
+        var alertTimeout = 5000;
+        setTimeout(function () {
+            var alertElement = document.getElementById('temp-alert');
+            if (alertElement) {
+                alertElement.style.display = 'none';
+            }
+        }, alertTimeout);
+    </script>
+}
 
 <style>
 
-    .btn-primary {
-        border-radius: 10px;
+    #btnTop {
+        display: none;
+        position: fixed;
+        bottom: 40px;
+        right: 50px;
+        z-index: 99;
+        background-color: rgba(0, 0, 0, 0);
         border: none;
-        background-color: #890078;
+        outline: none;
+        cursor: pointer;
+        color: #890078;
+        transition: background-color 0.3s ease;
     }
 
-        .btn-primary:hover {
-            background-color: #6b056b;
+        #btnTop:hover {
+            color: #ff5800;
         }
 
-    .table th,
-    .table td {
-        font-size: 13px;
+
+    .btn {
+        border: none;
+    }
+
+    .btn-secondary {
+        border-radius: 10px;
+        border: none;
+        background-color: #8c9299;
+    }
+
+
+    #lancamento {
+        background-color: #890078;
+        border-radius: 10px;
+    }
+
+        #lancamento:hover {
+            background-color: #ff5800;
+        }
+
+
+    table {
+        text-align: center;
+        font-size: 11px;
+        width: 1200px;
+    }
+
+    th, td {
+        vertical-align: middle;
+    }
+
+        th:first-child, td:first-child {
+            width: 300px;
+        }
+
+    thead {
+        background-color: rgba(255, 88, 0, 0.5);
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
     }
 </style>

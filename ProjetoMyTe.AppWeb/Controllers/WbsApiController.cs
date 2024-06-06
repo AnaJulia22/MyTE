@@ -18,12 +18,12 @@ namespace ProjetoMyTe.AppWeb.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> ListarWbsApi()
+        public async Task<IActionResult> ListarWbsApi(string codigo)
         {
             try
             {
 
-                var wbss = await wbsServiceApi.ListarWbsAsync();
+                var wbss = await wbsServiceApi.ListarWbsAsync(codigo);
                 return View(wbss);
             }
             catch (Exception ex)
@@ -31,7 +31,12 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 return View("_Erro", ex);
             }
         }
-        
+
+       
+
+
+
+
 
 
 

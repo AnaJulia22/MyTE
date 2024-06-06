@@ -53,7 +53,7 @@ namespace MyTe.API.Services
                            join rsg in MyTeContext.RegistroHoras on col.Id equals rsg.CpfId
                            join sbw in MyTeContext.Wbss on rsg.WbsId equals sbw.Id
 
-                           group new { sbw, rsg } by sbw.Codigo into g
+                           group new { sbw, rsg } by new { sbw.Codigo, rsg.DataRegistro} into g
 
                            select new WbsDTOApi
 

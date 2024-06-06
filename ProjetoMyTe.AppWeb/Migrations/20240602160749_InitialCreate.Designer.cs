@@ -12,15 +12,15 @@ using ProjetoMyTe.AppWeb.Models.Contexts;
 namespace ProjetoMyTe.AppWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240515143745_IdentityContext")]
-    partial class IdentityContext
+    [Migration("20240602160749_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

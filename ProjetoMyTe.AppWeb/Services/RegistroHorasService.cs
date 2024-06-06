@@ -1,5 +1,5 @@
-﻿using Microsoft.CodeAnalysis.Options;
-using ProjetoMyTe.AppWeb.DAL;
+﻿using ProjetoMyTe.AppWeb.DAL;
+using ProjetoMyTe.AppWeb.Models.Common;
 using ProjetoMyTe.AppWeb.Models.Contexts;
 using ProjetoMyTe.AppWeb.Models.DTO;
 using ProjetoMyTe.AppWeb.Models.Entities;
@@ -31,6 +31,7 @@ namespace ProjetoMyTe.AppWeb.Services
                         on r.WbsId equals w.Id
                         join c in Context.Colaboradores
                         on r.CpfId equals c.Id
+                        where r.CpfId == Utils.IdCpf
                         select new RegistroHorasDTO
                         {
                             Id = r.Id,
@@ -70,15 +71,41 @@ namespace ProjetoMyTe.AppWeb.Services
             return lista.ToList();
         }
 
-        
+        public IEnumerable<RegistroHorasDTO> RegistroExiste(string cpf, DateTime data, int wbsId)
+        {
+            var lista = from r in Context.RegistroHoras
+                        join w in Context.Wbss
+                        on r.WbsId equals w.Id
+                        join c in Context.Colaboradores
+                        on r.CpfId equals c.Id
+                        where r.CpfId == cpf
+                        && r.Dia == data
+                        && w.Id == wbsId
+                        select new RegistroHorasDTO
+                        {
+                            Id = r.Id,
+                            DataRegistro = r.DataRegistro,
+                            CodigoWbs = w.Codigo,
+                            WbsId = w.Descricao,
+                            CpfId = c.Id,
+                            NomeColaborador = c.Nome,
+                            Dia = r.Dia,
+                            Horas = r.Horas
+
+                        };
+            return lista.ToList();
+        }
+
+
 
         public RegistroHoras? Buscar(int id)
         {
             return RegistrosDao.Buscar(id);
         }
-
+        
         public void Incluir(RegistroHoras registroHora)
         {
+            
             RegistrosDao.Adicionar(registroHora);
         }
 

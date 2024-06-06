@@ -9,6 +9,11 @@
     <a asp-action="Create">Create New</a>
 </p> *@
 
+@using (Html.BeginForm("ListarWbsApi", "WbsApi", FormMethod.Get))
+{   
+    <input type="text" name="codigo" />
+    <input type="submit" value="Filtrar" />
+}
 
 <table class="table">
     <thead>

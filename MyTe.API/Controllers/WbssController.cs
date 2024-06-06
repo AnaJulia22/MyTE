@@ -6,7 +6,7 @@ using MyTe.API.Services;
 
 namespace MyTe.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/{codigoWbs}")]
     [ApiController]
     public class WbssController : ControllerBase
     {

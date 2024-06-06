@@ -33,7 +33,12 @@ namespace ProjetoMyTe.AppWeb.Controllers
         {
             try
             {
-                var lista = registroHorasService.Listar();
+                var quinzena = quinzenasService.CriarQuinzena();
+                var inicioQuinzena = quinzena.InicioDaQuinzena;
+                var fimQuinzena = quinzena.FimDaQuinzena;
+
+                var lista = registroHorasService!.Listar(Utils.IdCpf!, inicioQuinzena, fimQuinzena);
+
                 return View(lista);
             }
             catch (Exception ex)
@@ -62,11 +67,24 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 {
                     return View();
                 }
-
+                var registro = registroHorasService!.RegistroExiste(Utils.IdCpf!, registroHoras.Dia, registroHoras.WbsId);
+                if (registro.Any())
+                {
+                    throw new Exception($"Não é permitido lançar horas para mesma WBS no mesmo dia: {registroHoras.Dia}");
+                }
                 registroHoras.CpfId = Utils.IdCpf;
                 registroHoras.DataRegistro = DateTime.Now;
+
+                if (registroHoras.Horas != 8)
+                {
+                    throw new Exception("A carga horária de 8/dia não foi cumprida. Favor, revise seu lançamento.");
+                }
+                
                 registroHorasService.Incluir(registroHoras);
-                return RedirectToAction("ListarRegistros");
+
+                TempData["AlertMessage"] = "Registro criado com sucesso!!!";
+                
+                return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras");
             }
             catch (Exception e)
             {
@@ -109,10 +127,21 @@ namespace ProjetoMyTe.AppWeb.Controllers
                 {
                     return View();
                 }
-
-                registroHoras.DataRegistro = DateTime.Now;
-                registroHorasService.Alterar(registroHoras);
-                return RedirectToAction("ListarRegistros"); // Requisição get
+                RegistroHoras rh = new RegistroHoras();
+                rh.DataRegistro = DateTime.Now;
+                rh.WbsId = registroHoras.WbsId;
+                rh.CpfId = Utils.IdCpf;
+                rh.Dia = registroHoras.Dia;
+                rh.Horas = registroHoras.Horas;
+                if(rh.Horas != 8)
+                {
+                    throw new Exception("A carga horária de 8/dia não foi cumprida. Favor, revise seu lançamento");
+                }
+                
+                registroHorasService.Alterar(rh);
+                TempData["AlertMessage"] = "Registro alterado com sucesso!!!";
+                rh = null!;
+                return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras");
             }
             catch (Exception e)
             {
@@ -121,37 +150,45 @@ namespace ProjetoMyTe.AppWeb.Controllers
             }
         }
 
-        [HttpGet]
+        //[HttpGet]
+        //public IActionResult RemoverRegistro(int id)
+        //{
+        //    try
+        //    {
+        //        if (id <= 0)
+        //        {
+        //            throw new
+        //                ArgumentException($"O valor informado na URL ({id}) é inválido");
+        //        }
+
+        //        RegistroHoras? registroHoras = registroHorasService.Buscar(id);
+        //        if (registroHoras == null)
+        //        {
+        //            throw new ArgumentException($"Nenhum objeto com este id: {id}");
+        //        }
+        //        return View(registroHoras);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return View("_Erro", e);
+        //    }
+        //}
+
+        [HttpPost]
         public IActionResult RemoverRegistro(int id)
         {
             try
             {
-                if (id <= 0)
+                var registroExistente = registroHorasService.Buscar(id);
+                if (registroExistente == null)
                 {
-                    throw new
-                        ArgumentException($"O valor informado na URL ({id}) é inválido");
+                    return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras"); 
                 }
 
-                RegistroHoras? registroHoras = registroHorasService.Buscar(id);
-                if (registroHoras == null)
-                {
-                    throw new ArgumentException($"Nenhum objeto com este id: {id}");
-                }
-                return View(registroHoras);
-            }
-            catch (Exception e)
-            {
-                return View("_Erro", e);
-            }
-        }
+                registroHorasService.Remover(registroExistente!);
+                TempData["AlertMessage"] = "Registro removido com sucesso!!!";
 
-        [HttpPost]
-        public IActionResult RemoverRegistro(RegistroHoras registroHoras)
-        {
-            try
-            {
-                registroHorasService.Remover(registroHoras);
-                return RedirectToAction("ListarRegistros");
+                return RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras");
             }
             catch (Exception e)
             {
