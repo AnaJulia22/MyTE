@@ -40,6 +40,9 @@ builder.Services.AddScoped<ColaboradoresService>();
 builder.Services.AddScoped<WbssService>();
 builder.Services.AddScoped<RegistroHorasService>();
 builder.Services.AddScoped<QuinzenasService>();
+builder.Services.AddScoped<ColaboradorServiceApi>();
+builder.Services.AddScoped<WbsServiceApi>();
+
 
 
 builder.Services.AddControllersWithViews();
@@ -72,5 +75,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Autenticacao}/{action=Login}/{id?}");
+    
 
 app.Run();
