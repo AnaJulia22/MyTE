@@ -1,4 +1,4 @@
-@MyTe.API_HostAddress = http://localhost:5147
+@MyTe.API_HostAddress = https://myte-decola-api.azurewebsites.net/
 
 GET {{MyTe.API_HostAddress}}/weatherforecast/
 Accept: application/json

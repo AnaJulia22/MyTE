@@ -17,6 +17,15 @@
             <li class="nav-item">
                 <a class="nav-link text-white" asp-area="" asp-controller="Wbss" asp-action="ListarWbss">WBS</a>
             </li>
+            @* <li class="nav-item">
+                <a class="nav-link text-white" asp-area="" asp-controller="ColaboradoresApi" asp-action="ListarColaboradoresApi">Listar Colaboradores</a>
+            </li>  *@ @* mudei aqui *@;
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-area="" asp-controller="WbsApi" asp-action="ListarWbsApi">Listar Wbs DTO</a>
+            </li>  @* mudei aqui *@;
+
+
+
         }
         else if (User.IsInRole("COLABORADOR"))
         {
