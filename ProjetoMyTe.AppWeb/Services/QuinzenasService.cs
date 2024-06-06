@@ -5,15 +5,16 @@ namespace ProjetoMyTe.AppWeb.Services
     public class QuinzenasService
     {
         
-        public QuinzenaViewModel CriarQuinzena()
+        public QuinzenaViewModel CriarQuinzena(DateTime? referencia = null)
         {
-            var inicioDaQuinzena = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var qtdeDiasDoMes = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            var dataReferencia = referencia ?? DateTime.Now;
+            var inicioDaQuinzena = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
+            var qtdeDiasDoMes = DateTime.DaysInMonth(dataReferencia.Year, dataReferencia.Month);
             var fimDaQuinzena = inicioDaQuinzena.AddDays(qtdeDiasDoMes - 1);
-            
-            if (DateTime.Now.Day > 15) inicioDaQuinzena = inicioDaQuinzena.AddDays(15);
+
+            if (dataReferencia.Day > 15) inicioDaQuinzena = inicioDaQuinzena.AddDays(15);
             else fimDaQuinzena = inicioDaQuinzena.AddDays(14);
-            
+
             var quinzena = new QuinzenaViewModel
             {
                 InicioDaQuinzena = inicioDaQuinzena,
@@ -21,12 +22,27 @@ namespace ProjetoMyTe.AppWeb.Services
                 DiasDoMes = ListarTodosOsDias(inicioDaQuinzena, fimDaQuinzena),
                 FinaisDeSemana = ListarOsFinaisDeSemana(inicioDaQuinzena, fimDaQuinzena),
                 DiasUteis = ListarDiasUteis(inicioDaQuinzena, fimDaQuinzena)
-                
             };
             return quinzena;
         }
 
-               
+        public DateTime GetProximaQuinzena(DateTime referencia)
+        {
+            if (referencia.Day <= 15)
+                return referencia.AddDays(15 + referencia.Day);
+            else
+                return new DateTime(referencia.Year, referencia.Month, 1).AddMonths(1);
+        }
+
+        public DateTime GetQuinzenaAnterior(DateTime referencia)
+        {
+            if (referencia.Day <= 15)
+                return new DateTime(referencia.Year, referencia.Month, 1).AddMonths(-1).AddDays(15);
+            else
+                return new DateTime(referencia.Year, referencia.Month, 1);
+        }
+
+
         private List<DateTime> ListarTodosOsDias(DateTime inicioDaQuinzena, DateTime fimDaQuinzena)
         {
             var listaDias = new List<DateTime>();
