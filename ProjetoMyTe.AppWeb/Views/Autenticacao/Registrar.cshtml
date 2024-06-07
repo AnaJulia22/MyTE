@@ -29,18 +29,12 @@
                     <input asp-for="ConfirmaSenha" class="form-control" />
                     <span asp-validation-for="ConfirmaSenha" class="text-danger"></span>
                 </div>
-                @* <div class="form-group">
-                    <label class="control-label">Perfil</label>
-                    <select asp-for="Perfil" class="form-select"
-                            asp-items="(SelectList)ViewBag.Roles">
-                        <option value="">NENHUM PERFIL</option>
-                    </select>
-                </div> *@
-                <div>
-                    <a asp-action="Login" class="btn btn-primary w-100" style="background-color: #ff5800; border-radius: 10px;">Fazer Login</a>
-                </div>
+
                 <div class="mt-2">
                     <input type="submit" value="Criar novo usuário" class="btn btn-primary" style="background-color: #ff5800; border-radius: 10px;" />
+                </div>
+                <div class="text-center mt-3 text-white">
+                    Já é registrado? <a asp-action="Login" class="text-white"><strong>Faça Login!</strong></a>
                 </div>
             </form>
         </div>
@@ -51,7 +45,8 @@
     .btn {
         border: none;
     }
-    body{
+
+    body {
         background: linear-gradient(to top, #890078 40%, #ff5800);
         background-image: url('/Imgs/MyTE Project - decola.jpg');
         background-size: cover;
