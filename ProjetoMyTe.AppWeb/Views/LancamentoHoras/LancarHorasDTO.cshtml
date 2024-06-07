@@ -21,7 +21,7 @@
 }
 <div class="row mt-2">
     <div class="col">
-        <a asp-action="ListarRegistrosQuinzena" asp-controller="LancamentoHoras" class="btn btn-primary" style="color: #ff5800; background-color: rgb(0, 0, 0, 0)">
+        <a asp-action="ListarRegistrosQuinzena" asp-controller="LancamentoHoras" class="btn btn-primary" style="color: #890078; background-color: rgb(0, 0, 0, 0)">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5" />
             </svg> Ver Último Lançamento
@@ -40,36 +40,39 @@
 
     var qtdeDias = quinzena.DiasDoMes!.Count;
 }
-<div class="container mx-auto">
-    <div class="row">
-        <div class="col text-start">
-            <a asp-action="QuinzenaAnterior" asp-route-referencia="@ViewBag.Referencia" class="btn btn-secondary">
-                Anterior
-            </a>
-        </div>
-        <div class="col text-end">
-            <a asp-action="ProximaQuinzena" asp-route-referencia="@ViewBag.Referencia" class="btn btn-secondary">
-                Próxima
-            </a>
-        </div>
-    </div>
-    <form id="formAdicionarHoras" asp-action="LancarHorasDTO" asp-route-referencia="@ViewBag.Referencia" class="mt-3">
-    <div class="mt-5">
-        <div class="row">
-            <div class="col text-end">
-                <input type="submit" value="Lançar horas" class="btn btn-primary" id="lancamento" />
+<div class="container mx-auto d-flex " style="width:900vh;">
+    <form id="formAdicionarHoras" asp-action="LancarHorasDTO" asp-route-referencia="@ViewBag.Referencia" class="mt-3" style="width: 200vh;">
+        <div class="mt-5">
+            <div class="row">
+                <div class="col d-flex align-items-center">
+                    <a asp-action="QuinzenaAnterior" asp-route-referencia="@ViewBag.Referencia" style="color: #890078;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-left-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path d="M10.205 12.456A.5.5 0 0 0 10.5 12V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4a.5.5 0 0 0 .537.082" />
+                        </svg>
+                    </a>
+                    <span style="margin: 0 10px;">||</span>
+                    <a asp-action="ProximaQuinzena" asp-route-referencia="@ViewBag.Referencia" style="color: #890078;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-right-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path d="M5.795 12.456A.5.5 0 0 1 5.5 12V4a.5.5 0 0 1 .832-.374l4.5 4a.5.5 0 0 1 0 .748l-4.5 4a.5.5 0 0 1-.537.082" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="col text-end">
+                    <input type="submit" value="Lançar horas" class="btn btn-primary" id="lancamento" />
+                </div>
             </div>
         </div>
-    </div>
-        <div id="EspacoLancamento" class="d-flex justify-content-center">
+        <div id="EspacoLancamento" class="d-flex justify-content-center mt-3">
             <table class="table table-bordered w-auto">
                 <thead>
                     <tr>
-                        <th style="width: 150px; ">Selecione a WBS</th>
+                        <th><strong> SELECIONE A WBS</strong></th>
                         @for (var j = 0; j < qtdeDias; j++)
                         {
-                            <th style="width: 80px;">
-                                <label class="control-label">@quinzena.GetDia(j).ToString("d/M/yy ddd")</label>
+                            <th style="width: 5vh;">
+                                <label class="control-label">@quinzena.GetDia(j).ToString("dd/MMM ddd")</label>
                             </th>
                         }
                     </tr>
@@ -82,7 +85,7 @@
                             <td style="background-color:  rgba(255, 88, 0, 0.5);">
 
                                 <div class="form-group mb-3">
-                                    <select asp-for="WbsId![i]" asp-items="(SelectList)ViewBag.ListaDeWbss" class="form-select">
+                                    <select asp-for="WbsId![i]" asp-items="(SelectList)ViewBag.ListaDeWbss" class="form-select" style="font-size:15px;">
                                         <option value="0">WBS</option>
                                     </select>
                                     <span asp-validation-for="WbsId" class="text-danger"></span>
@@ -99,7 +102,7 @@
                                     }
                                     else
                                     {
-                                        <input asp-for="Horas" type="number" class="form-control" value="0" min="0" max="8" />
+                                        <input asp-for="Horas" type="number" class="form-control text-center" value="0" min="0" max="8" />
                                     }
                                     <span asp-validation-for="Horas" class="text-danger"></span>
 
@@ -155,6 +158,12 @@
 
 <style>
 
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
     #btnTop {
         display: none;
         position: fixed;
@@ -186,19 +195,17 @@
 
 
     #lancamento {
-        background-color: #890078;
+        background-color: #ff5800;
         border-radius: 10px;
     }
 
         #lancamento:hover {
-            background-color: #ff5800;
+            background-color: #890078;
         }
-
 
     table {
         text-align: center;
         font-size: 11px;
-        width: 1200px;
     }
 
     th, td {
@@ -206,7 +213,7 @@
     }
 
         th:first-child, td:first-child {
-            width: 300px;
+            width: 4000vh;
         }
 
     thead {

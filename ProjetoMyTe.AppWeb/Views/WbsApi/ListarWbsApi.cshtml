@@ -3,61 +3,91 @@
     ViewData["Title"] = "ListarWbsApi";
 }
 
-<h1>Overview WBS's</h1>
-
-@* <p>
-    <a asp-action="Create">Create New</a>
-</p> *@
-
-@using (Html.BeginForm("ListarWbsApi", "WbsApi", FormMethod.Get))
-{   
-    <input type="text" name="codigo" />
-    <input type="submit" value="Filtrar" />
-}
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.codigoWbs)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WbsDescricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hora)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataRegistro)
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.codigoWbs)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.WbsDescricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hora)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataRegistro)
-                </td>
-
-
-                @* <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td> *@
-            </tr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
         }
-    </tbody>
-</table>
+
+        h1 {
+            color: #6b056b;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        table {
+            width: 100%;
+            background-color: #fff;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            padding: 8px 16px;
+            background-color: #890078;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #ff5800;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Overview WBS's</h1>
+
+        @using (Html.BeginForm("ListarWbsApi", "WbsApi", FormMethod.Get))
+        {
+            <div class="form-group">
+                <input type="text" name="codigo" placeholder="Filtrar por código..." class="form-control">
+                <input type="submit" value="Filtrar" class="btn btn-primary mt-2">
+            </div>
+        }
+
+        <table class="table">
+            <tbody >
+                @foreach (var item in Model)
+                {
+                    <tr >
+                        <td>@Html.DisplayFor(modelItem => item.codigoWbs)</td>
+                        <td>@Html.DisplayFor(modelItem => item.WbsDescricao)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Hora)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DataRegistro)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
