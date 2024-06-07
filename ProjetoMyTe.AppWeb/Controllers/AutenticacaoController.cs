@@ -69,8 +69,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
                         }
                         await signInManager.SignInAsync(user, isPersistent: false);
                         return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
-                                                      ? RedirectToAction("ListarRegistrosQuinzena", "LancamentoHoras") : User.IsInRole("RH")
-                                                      ? RedirectToAction("AdicionarColaborador", "Colaboradores")
+                                                      ? RedirectToAction("LancarHorasDTO", "LancamentoHoras") : User.IsInRole("GESTOR DE PROJETOS")
+                                                      ? RedirectToAction("ListarWbsApi", "WbsApi")
                                                       : RedirectToAction("ShowDashboard", "Dashboard");
                     }
                     foreach (var error in result.Errors)
@@ -108,8 +108,8 @@ namespace ProjetoMyTe.AppWeb.Controllers
 
 
                     return User.IsInRole("ADMIN") ? RedirectToAction("ListarWbss", "Wbss") : User.IsInRole("COLABORADOR")
-                                                      ? RedirectToAction("LancarHorasDTO", "LancamentoHoras") : User.IsInRole("RH")
-                                                      ? RedirectToAction("AdicionarColaborador", "Colaboradores")
+                                                      ? RedirectToAction("LancarHorasDTO", "LancamentoHoras") : User.IsInRole("GESTOR DE PROJETOS")
+                                                      ? RedirectToAction("ListarWbsApi", "WbsApi")
                                                       : RedirectToAction("ShowDashboard", "Dashboard");
 
                 }
